@@ -1,0 +1,536 @@
+/* ==========================================================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    padding-top: 80px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container-flex {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.container-flex.reverse {
+    flex-direction: row-reverse;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #222, transparent);
+}
+
+/* ==========================================================================
+   NAVBAR COM LINHA, FONTE BOMBADA E HALTER DINÂMICO
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 5%;
+    background-color: #313131;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo-area h1 {
+    color: #000000;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+.letra-vermelha {
+    color: #ff0000 !important;
+    display: inline-block;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 500;
+    margin: 0 14px;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 6px 0;
+    display: inline-block;
+    transition: color 0.2s ease, text-shadow 0.2s ease, -webkit-text-stroke 0.2s ease;
+}
+
+/* Criando o traço laranja sob a fonte */
+.menu a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ff5500;
+    /* Laranja Metálico */
+    transform-origin: bottom right;
+    transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+/* NOVO: Criando o mini halter invisível abaixo da linha */
+.menu a::before {
+    content: '❚█══█❚';
+    position: absolute;
+    bottom: -16px;
+    /* Posiciona logo abaixo da linha laranja */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    /* Começa invisível e encolhido */
+    font-size: 0.75rem;
+    /* Tamanho pequeno e discreto */
+    color: #ff5500;
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+    /* Efeito "Pop" ao surgir */
+}
+
+/* HOVER COMBINADO: Fonte forte, linha surge e halter aparece */
+.menu a:hover {
+    color: #ff5500;
+    -webkit-text-stroke: 0.5px #ff5500;
+    text-shadow: 0 0 1px rgba(255, 85, 0, 0.3);
+}
+
+/* Ativa a linha no hover */
+.menu a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Ativa o halter no hover (Faz ele surgir crescendo com efeito mola) */
+.menu a:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* ==========================================================================
+   3. HERO SECTION
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    background: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1920') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.85) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-family: 'Caveat', cursive !important;
+    font-size: 2.8rem;
+    color: #ff5500;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    text-decoration: none;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 12px 35px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* ==========================================================================
+   4. SEÇÕES E LISTAS
+   ========================================================================== */
+.lp-section {
+    padding: 80px 0;
+    background-color: #0d0d0d;
+}
+
+.bg-dark-section {
+    background-color: #121212;
+}
+
+.center-title-block {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-badge {
+    color: #ff1a1a;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #b3b3b3;
+}
+
+.lp-list li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #b3b3b3;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
+    list-style: none;
+}
+
+.lp-list li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: #ff1a1a;
+    top: 2px;
+}
+
+.placeholder-img {
+    background-color: #1a1a1a;
+    border: 2px dashed #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666666;
+    font-style: italic;
+}
+
+.image-block {
+    flex: 1;
+    height: 380px;
+    border-radius: 6px;
+}
+
+/* ==========================================================================
+   5. CARROSSEL DE EQUIPAMENTOS E SETAS DE NAVEGAÇÃO
+   ========================================================================== */
+.carrossel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.carrossel-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    outline: none;
+}
+
+.carrossel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carrossel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 25px;
+}
+
+.carrossel-item {
+    flex: 0 0 320px;
+    scroll-snap-align: center;
+    height: 400px;
+    background-color: #161616;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+
+.carrossel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: grayscale(30%);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.carrossel-item:hover {
+    transform: scale(1.03);
+    border-color: #ff1a1a;
+}
+
+.carrossel-item:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0%);
+}
+
+/* Botões Customizados das Setas */
+.carrossel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 85, 0, 0.85);
+    color: #ffffff;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 2rem;
+    line-height: 40px;
+    cursor: pointer;
+    /* <-- Isso deveria forçar a mãozinha */
+    z-index: 10;
+    /* <-- Mas se o contêiner estiver por cima, bloqueia o clique */
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.carrossel-btn:hover {
+    background: #ff3300;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.btn-prev {
+    left: -15px;
+}
+
+.btn-next {
+    right: -15px;
+}
+
+.carrossel-hint {
+    text-align: center;
+    color: #555;
+    font-size: 0.85rem;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   6. GRID DE PARCEIROS (EFEITO ESPELHO METÁLICO)
+   ========================================================================== */
+.grid-parceiros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.parceiro-card {
+    height: 140px;
+    background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+    border: 1px solid #252525;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.parceiro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 26, 26, 0.1), transparent);
+    transition: 0.6s;
+}
+
+.parceiro-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(40%);
+    transition: all 0.4s ease;
+}
+
+.parceiro-card:hover {
+    border-color: #ff1a1a;
+    background: #161616;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 26, 26, 0.05);
+}
+
+.parceiro-card:hover::before {
+    left: 100%;
+}
+
+.parceiro-card:hover img {
+    filter: grayscale(0%) opacity(100%);
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   7. SEÇÃO SOBRE
+   ========================================================================== */
+.sobre-subtitle {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.mini-quote {
+    border-left: 4px solid #ff1a1a;
+    padding-left: 20px;
+    margin-top: 25px;
+    font-style: italic;
+    color: #d4d4d4;
+}
+
+/* ==========================================================================
+   8. COMPONENTES EXTRA
+   ========================================================================== */
+.grid-tres-colunas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.card {
+    background-color: #141414;
+    padding: 35px 25px;
+    border-radius: 6px;
+    border-top: 4px solid #ff1a1a;
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #a6a6a6;
+    line-height: 1.5;
+}
+
+.lp-footer {
+    background-color: #050505;
+    padding: 40px 0;
+    text-align: center;
+    color: #666666;
+    font-size: 0.9rem;
+    border-top: 1px solid #1a1a1a;
+}
+
+.footer-version {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #444444;
+}
+
+/* ==========================================================================
+   9. RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 968px) {
+
+    .container-flex,
+    .container-flex.reverse {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .grid-tres-colunas,
+    .grid-parceiros {
+        grid-template-columns: 1fr;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.8rem;
+    }
+
+    .carrossel-item {
+        flex: 0 0 260px;
+        height: 320px;
+    }
+
+    .carrossel-btn {
+        display: none;
+    }
+
+    /* Oculta setas no mobile (usa o dedo) */
+}

@@ -1,0 +1,840 @@
+/* ==========================================================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    padding-top: 80px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container-flex {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.container-flex.reverse {
+    flex-direction: row-reverse;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #222, transparent);
+}
+
+/* ==========================================================================
+   2. NAVBAR COM LINHA, HOVER BOMBADO E HALTER ESTILIZADO
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 5%;
+    background-color: #313131;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo-area h1 img {
+    max-height: 50px;
+    display: block;
+    /* Adiciona o borrão alaranjado seguindo o formato exato das letras/símbolo */
+    filter: drop-shadow(0px 0px 25px #ff5500);
+}
+
+.menu a {
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 500;
+    margin: 0 14px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 6px 0;
+    display: inline-block;
+    transition: color 0.2s ease, text-shadow 0.2s ease, -webkit-text-stroke 0.2s ease;
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ff5500;
+    transform-origin: bottom right;
+    transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.menu a::before {
+    content: '❚█══█❚';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    font-size: 0.75rem;
+    color: #ff5500;
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+}
+
+.menu a:hover {
+    color: #ff5500;
+    -webkit-text-stroke: 0.5px #ff5500;
+    text-shadow: 0 0 1px rgba(255, 85, 0, 0.3);
+}
+
+.menu a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.menu a:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* ==========================================================================
+   3. HERO SECTION
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    background: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1920') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.85) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.hero-subtitle {
+    font-family: 'Caveat', cursive !important;
+    font-size: 2.8rem;
+    color: #ff5500;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    text-decoration: none;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 12px 35px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* ==========================================================================
+   4. SEÇÕES E LISTAS
+   ========================================================================== */
+.lp-section {
+    padding: 80px 0;
+    background-color: #0d0d0d;
+}
+
+.bg-dark-section {
+    background-color: #121212;
+}
+
+.center-title-block {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-badge {
+    color: #ff1a1a;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 10px;
+    /* Adiciona um brilho sutil vermelho/laranja atrás do texto menor */
+    text-shadow: 0 0 10px #ff5500;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    /* Adiciona um brilho sutil vermelho/laranja atrás do texto menor */
+    text-shadow: 0 0 10px #ff5500;
+}
+
+.text-block p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #b3b3b3;
+}
+
+.lp-list li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #b3b3b3;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
+    list-style: none;
+}
+
+.lp-list li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    color: #ff1a1a;
+    top: 2px;
+}
+
+.placeholder-img {
+    background-color: #1a1a1a;
+    border: 2px dashed #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666666;
+    font-style: italic;
+}
+
+/* CORRIGIDO: Propriedades unificadas da classe image-block aqui */
+
+.image-block {
+    flex: 1;
+    min-width: 400px;
+    /* Garante que o bloco não encolhe e mantém o espaço da foto */
+    height: 380px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    /* Se a imagem falhar, restará um fundo cinza escuro de aviso */
+}
+
+/* ==========================================================================
+   5. CARROSSEL DE EQUIPAMENTOS E CONFIGURAÇÃO FLIP 3D (MÁQUINA 6)
+   ========================================================================== */
+.carrossel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.carrossel-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    outline: none;
+}
+
+.carrossel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carrossel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 25px;
+}
+
+.carrossel-item {
+    flex: 0 0 320px;
+    scroll-snap-align: center;
+    height: 400px;
+    background-color: #161616;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+
+.carrossel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: grayscale(30%);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.carrossel-item:not(.item-flip):hover {
+    transform: scale(1.03);
+    border-color: #ff1a1a;
+}
+
+.carrossel-item:not(.item-flip):hover img {
+    transform: scale(1.06);
+    filter: grayscale(0%);
+}
+
+.item-flip {
+    perspective: 1000px;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    border: 1px solid #222;
+}
+
+.item-flip:hover .flip-inner {
+    transform: rotateY(180deg);
+    border-color: #ff5500;
+}
+
+.flip-front,
+.flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.flip-front img,
+.flip-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.flip-front {
+    background-color: #161616;
+    z-index: 2;
+}
+
+.flip-back {
+    background-color: #161616;
+    transform: rotateY(180deg);
+}
+
+.carrossel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 85, 0, 0.85);
+    color: #ffffff;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 2rem;
+    line-height: 40px;
+    cursor: pointer;
+    z-index: 100;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.carrossel-btn:hover {
+    background: #ff3300;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.btn-prev {
+    left: -15px;
+}
+
+.btn-next {
+    right: -15px;
+}
+
+.carrossel-hint {
+    text-align: center;
+    color: #555;
+    font-size: 0.85rem;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   6. GRID DE PARCEIROS (COM SISTEMA DE TRANSIÇÃO EM ABAS/PÁGINAS)
+   ========================================================================== */
+.parceiros-paginacao-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+}
+
+.grid-parceiros {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.grid-parceiros.active {
+    display: grid;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.parceiro-card {
+    height: 140px;
+    background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+    border: 1px solid #252525;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.parceiro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 26, 26, 0.1), transparent);
+    transition: 0.6s;
+}
+
+.parceiro-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(40%);
+    transition: all 0.4s ease;
+}
+
+.parceiro-card:hover {
+    border-color: #ff1a1a;
+    background: #161616;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 26, 26, 0.05);
+}
+
+.parceiro-card:hover::before {
+    left: 100%;
+}
+
+.parceiro-card:hover img {
+    filter: grayscale(0%) opacity(100%);
+    transform: scale(1.05);
+}
+
+.parceiros-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.btn-page {
+    background-color: #1a1a1a;
+    color: #a6a6a6;
+    border: 2px solid #333;
+    width: 40px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.btn-page:hover {
+    color: #ff5500;
+    border-color: #ff5500;
+}
+
+.btn-page.active {
+    background-color: #ff5500;
+    color: #ffffff;
+    border-color: #ff5500;
+    box-shadow: 0 0 12px rgba(255, 85, 0, 0.4);
+}
+
+/* ==========================================================================
+   7. SEÇÃO SOBRE E EXTRA COMPONENTS
+   ========================================================================== */
+.sobre-subtitle {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.mini-quote {
+    border-left: 4px solid #ff1a1a;
+    padding-left: 20px;
+    margin-top: 25px;
+    font-style: italic;
+    color: #d4d4d4;
+}
+
+/* NOVA REGRA: Ajusta a imagem real dentro do bloco da seção Sobre */
+.sobre-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: grayscale(10%) contrast(110%);
+    border: 1px solid #222;
+}
+
+.grid-tres-colunas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.card {
+    background-color: #141414;
+    padding: 35px 25px;
+    border-radius: 6px;
+    border-top: 4px solid #ff1a1a;
+}
+
+.card h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #a6a6a6;
+    line-height: 1.5;
+}
+
+.lp-footer {
+    background-color: #050505;
+    padding: 40px 0;
+    text-align: center;
+    color: #666666;
+    font-size: 0.9rem;
+    border-top: 1px solid #1a1a1a;
+}
+
+.footer-version {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #444444;
+}
+
+/* ==========================================================================
+   8. GRID DE REDES SOCIAIS E ATENDIMENTO
+   ========================================================================== */
+.grid-social {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.social-card {
+    background-color: #141414;
+    border: 1px solid #252525;
+    padding: 30px 20px;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.social-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social-card h3 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.social-card p {
+    color: #a6a6a6;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.social-card:hover {
+    border-color: #ff5500;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 85, 0, 0.1);
+}
+
+.social-card:hover .social-icon {
+    transform: scale(1.15);
+}
+
+/* CORRIGIDO: Removido a vírgula errada do final do bloco */
+.destaque-vendas {
+    border: 1px solid rgba(255, 85, 0, 0.4);
+    background: linear-gradient(180deg, #141414 0%, #1a1614 100%);
+}
+
+/* ==========================================================================
+   9. RESPONSIVO LAPIDADO (MENU HAMBÚRGUER, HALTER À ESQUERDA E FIXES)
+   ========================================================================== */
+
+/* Configuração base do botão hambúrguer (Invisível no Computador) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+    padding: 0;
+}
+
+.menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* Transformação para o 'X' quando ativo */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: #ff5500;
+}
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: #ff5500;
+}
+
+/* ---- Ajuste Geral para Celulares e Tablets (Abaixo de 950px) ---- */
+@media screen and (max-width: 950px) {
+    body {
+        padding-top: 70px; /* Evita pulos na tela já que a navbar fica fixa */
+    }
+
+    .navbar {
+        padding: 15px 5% !important;
+        flex-direction: row !important; /* Mantém logo na esquerda e botão na direita */
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    /* Mostra o botão hambúrguer */
+    .menu-toggle {
+        display: flex !important;
+    }
+
+    /* O Menu vira uma cortina que desce do topo */
+    .menu {
+        position: fixed !important;
+        top: -100% !important; /* Escondido acima da tela */
+        left: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background-color: rgba(20, 20, 20, 0.98) !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Centraliza os links no meio da tela */
+        padding: 30px 0 !important;
+        gap: 15px !important;
+        transition: top 0.4s ease-in-out !important;
+        z-index: 1000 !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+
+    /* Classe que o JavaScript ativa para abrir o menu */
+    .menu.active {
+        top: 65px !important; /* Desce exatamente abaixo da barra do topo */
+    }
+
+    /* ALTERADO: Links do menu agora NÃO ocupam mais 100% de largura de fora a fora */
+    .menu a {
+        font-size: 1.05rem !important;
+        margin: 0 !important;
+        
+        /* SOLUÇÃO DA LINHA: Ocupa apenas a largura exata da palavra/conteúdo */
+        width: max-content !important; 
+        padding: 10px 15px !important; /* Adiciona um respiro confortável nas laterais */
+        
+        /* Mantém os elementos internos (halter e texto) alinhados na mesma linha */
+        display: flex !important;          
+        flex-direction: row !important;     
+        align-items: center !important;    
+        justify-content: center !important;
+        gap: 10px !important;              
+        
+        position: relative !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Configuração do halter de texto à ESQUERDA da palavra */
+    .menu a::before {
+        display: inline-block !important;
+        content: "❚█══█❚" !important;      
+        font-size: 0.65rem !important;
+        color: #ff5500 !important;         
+        
+        /* Reseta posições absolutas antigas */
+        position: static !important;       
+        transform: none !important;        
+        
+        opacity: 0;                        
+        transition: opacity 0.25s ease-in-out !important;
+    }
+
+    /* Efeito ao passar o dedo / clicar no item do menu */
+    .menu a:hover::before,
+    .menu a:active::before {
+        opacity: 1 !important;             
+    }
+
+    /* --- CORREÇÕES DE ELEMENTOS QUE ESTAVAM GIGANTES OU DESALINHADOS --- */
+    .hero-title {
+        font-size: 1.8rem !important;      
+        line-height: 1.2 !important;
+        max-width: 90% !important;
+        margin: 0 auto 10px auto !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem !important;
+    }
+
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+
+    /* Empilhamento inteligente das seções (ex: jornada de 50 anos) */
+    .container-flex, 
+    .container-flex.reverse {
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    .image-block {
+        width: 100% !important;
+        min-width: 100% !important;
+        height: 260px !important;
+    }
+
+    .grid-tres-colunas, 
+    .grid-social {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    .grid-parceiros {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* MANUTENÇÃO E AJUSTE DAS SETAS DO CARROSSEL */
+    .carrossel-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.3rem !important;
+        z-index: 10 !important;
+    }
+    .btn-prev { left: 8px !important; }
+    .btn-next { right: 8px !important; }
+}
+
+/* ---- Smartphones Muito Pequenos (Abaixo de 480px) ---- */
+@media screen and (max-width: 480px) {
+    .hero-title {
+        font-size: 1.5rem !important;
+    }
+
+    .grid-parceiros {
+        grid-template-columns: 1fr !important;
+    }
+
+    .carrossel-item {
+        flex: 0 0 260px !important;
+        height: 320px !important;
+    }
+}
