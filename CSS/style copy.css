@@ -60,6 +60,7 @@ body {
 .logo-area h1 img {
     max-height: 50px;
     display: block;
+    /* Adiciona o borrão alaranjado seguindo o formato exato das letras/símbolo */
     filter: drop-shadow(0px 0px 25px #ff5500);
 }
 
@@ -205,6 +206,7 @@ body {
     letter-spacing: 2px;
     display: block;
     margin-bottom: 10px;
+    /* Adiciona um brilho sutil vermelho/laranja atrás do texto menor */
     text-shadow: 0 0 10px #ff5500;
 }
 
@@ -214,6 +216,7 @@ body {
     color: #ffffff;
     margin-bottom: 25px;
     text-transform: uppercase;
+    /* Adiciona um brilho sutil vermelho/laranja atrás do texto menor */
     text-shadow: 0 0 10px #ff5500;
 }
 
@@ -251,13 +254,17 @@ body {
     font-style: italic;
 }
 
+/* CORRIGIDO: Propriedades unificadas da classe image-block aqui */
+
 .image-block {
     flex: 1;
     min-width: 400px;
+    /* Garante que o bloco não encolhe e mantém o espaço da foto */
     height: 380px;
     border-radius: 6px;
     overflow: hidden;
     background-color: #1a1a1a;
+    /* Se a imagem falhar, restará um fundo cinza escuro de aviso */
 }
 
 /* ==========================================================================
@@ -291,7 +298,6 @@ body {
     gap: 25px;
 }
 
-/* Configuração base para itens comuns do carrossel */
 .carrossel-item {
     flex: 0 0 320px;
     scroll-snap-align: center;
@@ -299,13 +305,8 @@ body {
     background-color: #161616;
     border-radius: 8px;
     overflow: hidden;
-    border: none;
-    /* Garante que a borda antiga de 1px ou 2px sumiu */
-
-    /* AS DUAS SOMBRAS JUNTAS NA MESMA LINHA: */
-    box-shadow: 0 0 0 0.5px #ff5500, 0 0 15px rgba(255, 85, 0, 0.4);
-
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+    border: 1px solid #222;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
 }
 
 .carrossel-item img {
@@ -318,11 +319,9 @@ body {
     -webkit-user-drag: none;
 }
 
-/* Efeito Hover nos itens normais: Borda branca e sombra branca */
 .carrossel-item:not(.item-flip):hover {
     transform: scale(1.03);
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    border-color: #ff1a1a;
 }
 
 .carrossel-item:not(.item-flip):hover img {
@@ -330,32 +329,25 @@ body {
     filter: grayscale(0%);
 }
 
-/* Remove estilos do contêiner externo do flip para não duplicar bordas */
 .item-flip {
     perspective: 1000px;
     background-color: transparent !important;
     border: none !important;
-    box-shadow: none !important;
 }
 
-/* Elemento interno do flip que recebe as bordas e sombras */
 .flip-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s, box-shadow 0.3s;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
     border-radius: 8px;
-    /* ADICIONADO: Borda alaranjada e sombra no card 3D */
-    border: 2px solid #ff5500;
-    box-shadow: 0 0 15px rgba(255, 85, 0, 0.4);
+    border: 1px solid #222;
 }
 
-/* Efeito Hover no item flip: Gira o card, muda a borda para branca com sombra branca */
 .item-flip:hover .flip-inner {
     transform: rotateY(180deg);
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    border-color: #ff5500;
 }
 
 .flip-front,
@@ -365,8 +357,7 @@ body {
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 6px;
-    /* Ajuste sutil para casar com a borda externa */
+    border-radius: 7px;
     overflow: hidden;
 }
 
@@ -552,6 +543,7 @@ body {
     color: #d4d4d4;
 }
 
+/* NOVA REGRA: Ajusta a imagem real dentro do bloco da seção Sobre */
 .sobre-img {
     width: 100%;
     height: 100%;
@@ -653,6 +645,7 @@ body {
     transform: scale(1.15);
 }
 
+/* CORRIGIDO: Removido a vírgula errada do final do bloco */
 .destaque-vendas {
     border: 1px solid rgba(255, 85, 0, 0.4);
     background: linear-gradient(180deg, #141414 0%, #1a1614 100%);
@@ -661,6 +654,8 @@ body {
 /* ==========================================================================
    9. RESPONSIVO LAPIDADO (MENU HAMBÚRGUER, HALTER À ESQUERDA E FIXES)
    ========================================================================== */
+
+/* Configuração base do botão hambúrguer (Invisível no Computador) */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -681,88 +676,103 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Transformação para o 'X' quando ativo */
 .menu-toggle.active span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
     background-color: #ff5500;
 }
-
 .menu-toggle.active span:nth-child(2) {
     opacity: 0;
 }
-
 .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
     background-color: #ff5500;
 }
 
+/* ---- Ajuste Geral para Celulares e Tablets (Abaixo de 950px) ---- */
 @media screen and (max-width: 950px) {
     body {
-        padding-top: 70px;
+        padding-top: 70px; /* Evita pulos na tela já que a navbar fica fixa */
     }
 
     .navbar {
         padding: 15px 5% !important;
-        flex-direction: row !important;
+        flex-direction: row !important; /* Mantém logo na esquerda e botão na direita */
         justify-content: space-between !important;
         align-items: center !important;
     }
 
+    /* Mostra o botão hambúrguer */
     .menu-toggle {
         display: flex !important;
     }
 
+    /* O Menu vira uma cortina que desce do topo */
     .menu {
         position: fixed !important;
-        top: -100% !important;
+        top: -100% !important; /* Escondido acima da tela */
         left: 0 !important;
         width: 100% !important;
         height: auto !important;
         background-color: rgba(20, 20, 20, 0.98) !important;
         flex-direction: column !important;
-        align-items: center !important;
+        align-items: center !important; /* Centraliza os links no meio da tela */
         padding: 30px 0 !important;
         gap: 15px !important;
         transition: top 0.4s ease-in-out !important;
         z-index: 1000 !important;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.6);
     }
 
+    /* Classe que o JavaScript ativa para abrir o menu */
     .menu.active {
-        top: 65px !important;
+        top: 65px !important; /* Desce exatamente abaixo da barra do topo */
     }
 
+    /* ALTERADO: Links do menu agora NÃO ocupam mais 100% de largura de fora a fora */
     .menu a {
         font-size: 1.05rem !important;
         margin: 0 !important;
-        width: max-content !important;
-        padding: 10px 15px !important;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
+        
+        /* SOLUÇÃO DA LINHA: Ocupa apenas a largura exata da palavra/conteúdo */
+        width: max-content !important; 
+        padding: 10px 15px !important; /* Adiciona um respiro confortável nas laterais */
+        
+        /* Mantém os elementos internos (halter e texto) alinhados na mesma linha */
+        display: flex !important;          
+        flex-direction: row !important;     
+        align-items: center !important;    
         justify-content: center !important;
-        gap: 10px !important;
+        gap: 10px !important;              
+        
         position: relative !important;
         box-sizing: border-box !important;
     }
 
+    /* Configuração do halter de texto à ESQUERDA da palavra */
     .menu a::before {
         display: inline-block !important;
-        content: "❚█══█❚" !important;
+        content: "❚█══█❚" !important;      
         font-size: 0.65rem !important;
-        color: #ff5500 !important;
-        position: static !important;
-        transform: none !important;
-        opacity: 0;
+        color: #ff5500 !important;         
+        
+        /* Reseta posições absolutas antigas */
+        position: static !important;       
+        transform: none !important;        
+        
+        opacity: 0;                        
         transition: opacity 0.25s ease-in-out !important;
     }
 
+    /* Efeito ao passar o dedo / clicar no item do menu */
     .menu a:hover::before,
     .menu a:active::before {
-        opacity: 1 !important;
+        opacity: 1 !important;             
     }
 
+    /* --- CORREÇÕES DE ELEMENTOS QUE ESTAVAM GIGANTES OU DESALINHADOS --- */
     .hero-title {
-        font-size: 1.8rem !important;
+        font-size: 1.8rem !important;      
         line-height: 1.2 !important;
         max-width: 90% !important;
         margin: 0 auto 10px auto !important;
@@ -776,7 +786,8 @@ body {
         font-size: 1.8rem !important;
     }
 
-    .container-flex,
+    /* Empilhamento inteligente das seções (ex: jornada de 50 anos) */
+    .container-flex, 
     .container-flex.reverse {
         flex-direction: column !important;
         gap: 30px !important;
@@ -788,7 +799,7 @@ body {
         height: 260px !important;
     }
 
-    .grid-tres-colunas,
+    .grid-tres-colunas, 
     .grid-social {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
@@ -798,6 +809,7 @@ body {
         grid-template-columns: repeat(2, 1fr) !important;
     }
 
+    /* MANUTENÇÃO E AJUSTE DAS SETAS DO CARROSSEL */
     .carrossel-btn {
         display: flex !important;
         align-items: center !important;
@@ -807,16 +819,11 @@ body {
         font-size: 1.3rem !important;
         z-index: 10 !important;
     }
-
-    .btn-prev {
-        left: 8px !important;
-    }
-
-    .btn-next {
-        right: 8px !important;
-    }
+    .btn-prev { left: 8px !important; }
+    .btn-next { right: 8px !important; }
 }
 
+/* ---- Smartphones Muito Pequenos (Abaixo de 480px) ---- */
 @media screen and (max-width: 480px) {
     .hero-title {
         font-size: 1.5rem !important;
@@ -833,7 +840,10 @@ body {
 }
 
 /* ==========================================================================
-   10. TELA DE ABERTURA COM HALTER GIRATÓRIO E TEXTO
+   TELA DE ABERTURA COM HALTER GIRATÓRIO
+   ========================================================================== */
+/* ==========================================================================
+   TELA DE ABERTURA COM HALTER GIRATÓRIO E TEXTO
    ========================================================================== */
 #preloader {
     position: fixed;
@@ -841,7 +851,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #141414;
+    background-color: #141414; /* Cor escura padrão da sua marca */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -849,21 +859,24 @@ body {
     transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
+/* Alinha o halter e o texto na vertical (um abaixo do outro) */
 .loader-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 60px; /* Distância perfeita entre o halter e o texto */
 }
 
+/* Estilização e Animação do Halter */
 .loader-halter {
     font-size: 2.5rem;
-    color: #ff5500;
+    color: #ff5500; /* Laranja da Portico */
     font-weight: bold;
     letter-spacing: 2px;
-    animation: rodarHalter 1.5s linear infinite;
+    animation: rodarHalter 1.5s linear infinite; 
 }
 
+/* Estilização do Texto de Boas-vindas */
 .loader-text {
     color: #ffffff;
     font-size: 1.2rem;
@@ -874,16 +887,13 @@ body {
     font-weight: 500;
 }
 
+/* Regra que faz o halter girar 360 graus */
 @keyframes rodarHalter {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
+/* Classe que o JavaScript vai aplicar para sumir com a tela de abertura */
 #preloader.sumir {
     opacity: 0;
     visibility: hidden;

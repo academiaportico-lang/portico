@@ -1,3 +1,5 @@
+Ativar office
+
 Aqui está a lista exata na ordem em que você os executou no prompt de comando:
 
 git init (Tentativa inicial)
