@@ -1,0 +1,37 @@
+Aqui está a lista exata na ordem em que você os executou no prompt de comando:
+
+git init (Tentativa inicial)
+
+git --version (Para checar a versão após instalar)
+
+git init (Início oficial do repositório local)
+
+git add . (Preparação de arquivos)
+
+git commit -m "Upload inicial do projeto Portico" (Erro de identidade)
+
+git branch -M main (Definição da branch principal)
+
+git remote add origin https://github.com/academiaportico-lang/portico.git (Vínculo com o link do GitHub)
+
+git push -u origin main (Erro de refspec por falta de commit válido)
+
+git add . (Nova tentativa)
+
+git commit -m "Upload inicial do projeto Portico" (Aviso de identidade não configurada)
+
+git push -u origin main
+
+git config --global user.email "seu-email-do-github@example.com" (Configurando o seu e-mail do GitHub)
+
+git config --global user.name "Seu Nome ou Usuario" (Configurando o seu nome de usuário)
+
+git commit -m "Upload inicial do projeto Portico" (Commit realizado com sucesso após se identificar)
+
+git push -u origin main (Envio definitivo do código para a nuvem)
+
+/////////////pra eu atualizar
+
+git add .
+git commit -m "sua mensagem aqui"
+git push
