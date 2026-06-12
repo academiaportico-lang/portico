@@ -34,6 +34,8 @@ git push -u origin main (Envio definitivo do código para a nuvem)
 
 /////////////pra eu atualizar
 
+git push origin main -f //força o push
+
 git add .
 git commit -m "sua mensagem aqui"
 git push

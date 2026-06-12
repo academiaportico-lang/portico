@@ -292,7 +292,9 @@ body {
 }
 
 /* Configuração base para itens comuns do carrossel */
-.carrossel-item {
+/* Configuração base para itens comuns e itens com flip do carrossel */
+.carrossel-item, 
+.carrossel-item.item-flip {
     flex: 0 0 320px;
     scroll-snap-align: center;
     height: 400px;
@@ -303,7 +305,7 @@ body {
     /* Garante que a borda antiga de 1px ou 2px sumiu */
 
     /* AS DUAS SOMBRAS JUNTAS NA MESMA LINHA: */
-    box-shadow: 0 0 0 0.5px #ff5500, 0 0 15px rgba(255, 85, 0, 0.4);
+    box-shadow: 0 0 0 0.5px #ff5500, 0 0 15px rgba(150, 235, 212, 0.4);
 
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
 }
