@@ -63,6 +63,11 @@ body {
     filter: drop-shadow(0px 0px 25px #ff5500);
 }
 
+.menu {
+    display: flex;
+    align-items: center;
+}
+
 .menu a {
     text-decoration: none;
     color: #e0e0e0;
@@ -125,7 +130,7 @@ body {
     position: relative;
     width: 100%;
     height: 75vh;
-    background: url('https://images.unsplash.com/photo-1741978833674-087a2fc0afe6?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    background: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1920') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -241,16 +246,6 @@ body {
     top: 2px;
 }
 
-.placeholder-img {
-    background-color: #1a1a1a;
-    border: 2px dashed #333333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #666666;
-    font-style: italic;
-}
-
 .image-block {
     flex: 1;
     min-width: 400px;
@@ -261,7 +256,7 @@ body {
 }
 
 /* ==========================================================================
-   5. CARROSSEL DE EQUIPAMENTOS (DESKTOP PADRÃO)
+   5. CARROSSEL DE EQUIPAMENTOS E CONFIGURAÇÃO FLIP 3D + CARD DE VÍDEO
    ========================================================================== */
 .carrossel-wrapper {
     position: relative;
@@ -271,58 +266,53 @@ body {
 }
 
 .carrossel-container {
-    display: flex !important;
-    gap: 20px !important;
-    overflow-x: auto !important;
-    scroll-behavior: smooth !important;
-    padding: 15px 0 !important;
-    scrollbar-width: none !important;
     width: 100%;
-}
-
-.carrossel-container::-webkit-scrollbar {
-    display: none !important;
-}
-
-.carrossel-track {
+    overflow-x: auto;
+    padding: 20px 0;
+    /* Removido paddings laterais estáticos se houver */
+    scroll-snap-type: x proximity;
+    /* Mudado de mandatory para proximity */
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    outline: none;
     display: flex;
-    flex-wrap: nowrap;
     gap: 25px;
 }
 
-/* Base de tamanho idêntica para todos os cards no PC */
-.item-com-video,
-.carrossel-item-standard,
-.item-flip,
-.carrossel-item {
-    flex: 0 0 300px !important;
-    width: 300px !important;
-    height: 400px !important;
-    position: relative !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    background-color: #111 !important;
-    box-shadow: 0 0 0 0.5px #ff5500, 0 0 15px rgba(150, 235, 212, 0.4);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+.carrossel-container::-webkit-scrollbar {
+    display: none;
 }
 
-/* Controle de imagens globais do carrossel */
-.carrossel-container img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
+.carrossel-item {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    /* Mudado de center para start para estabilizar as pontas */
+    scroll-margin: 20px;
+    /* Garante que o item pare exatamente a 20px da borda da tela */
+    height: 400px;
+    background-color: #161616;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.carrossel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.5s ease;
     filter: grayscale(30%);
     user-select: none;
     -webkit-user-drag: none;
 }
 
-/* Hover estrutural nos itens comuns */
 .carrossel-item:not(.item-flip):hover {
     transform: scale(1.03);
-    border-color: #ffffff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    border-color: #ff1a1a;
 }
 
 .carrossel-item:not(.item-flip):hover img {
@@ -330,85 +320,86 @@ body {
     filter: grayscale(0%);
 }
 
-/* Embrulho de imagem para itens que necessitam cálculo (Card 1) */
-.img-wrapper {
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
+/* Ajustes de Layout para Cards com Linha de Vídeo Embaixo */
+.item-video-abaixo {
+    display: flex;
+    flex-direction: column;
 }
 
-.item-com-video .img-wrapper {
-    height: calc(100% - 50px) !important;
+.item-video-abaixo .card-media {
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
 }
 
-/* ==========================================================================
-   BOTÃO ASSISTIR VÍDEO (CARD 1)
-   ========================================================================== */
+.card-footer-video {
+    background-color: #1a1a1a;
+    padding: 14px;
+    text-align: center;
+    border-top: 1px solid #282828;
+}
+
 .play-btn-inline {
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 50px !important;
-    background-color: #ff5500 !important;
-    border: none !important;
-    color: #ffffff !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    text-transform: uppercase !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    z-index: 10 !important;
-    transition: background 0.2s ease-in-out !important;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
 }
 
 .play-btn-inline:hover {
-    background-color: #e04b00 !important;
+    color: #ff5500;
 }
 
 .play-icon-mini {
-    font-size: 12px !important;
+    color: #ff5500;
+    font-size: 0.75rem;
 }
 
-/* ==========================================================================
-   CONFIGURAÇÃO E CORREÇÃO DO EFEITO FLIP 3D
-   ========================================================================== */
+/* Configurações do Flip 3D */
 .item-flip {
     perspective: 1000px;
     background-color: transparent !important;
     border: none !important;
-    box-shadow: none !important;
 }
 
-.item-flip .flip-inner {
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transform-style: preserve-3d !important;
-    border-radius: 8px !important;
-    border: 2px solid #ff5500;
-    box-shadow: 0 0 15px rgba(255, 85, 0, 0.4);
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    border: 1px solid #222;
 }
 
 .item-flip:hover .flip-inner {
-    transform: rotateY(180deg) !important;
+    transform: rotateY(180deg);
+    border-color: #ff5500;
 }
 
 .flip-front,
 .flip-back {
-    position: absolute !important;
-    width: 100% !important;
-    height: 100% !important;
-    -webkit-backface-visibility: hidden !important;
-    backface-visibility: hidden !important;
-    border-radius: 6px !important;
-    overflow: hidden !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.flip-front img,
+.flip-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .flip-front {
@@ -418,10 +409,10 @@ body {
 
 .flip-back {
     background-color: #161616;
-    transform: rotateY(180deg) !important;
+    transform: rotateY(180deg);
 }
 
-/* Controles de Navegação do Carrossel */
+/* Controladores Visuais */
 .carrossel-btn {
     position: absolute;
     top: 50%;
@@ -445,8 +436,13 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-.btn-prev { left: -15px; }
-.btn-next { right: -15px; }
+.btn-prev {
+    left: -15px;
+}
+
+.btn-next {
+    right: -15px;
+}
 
 .carrossel-hint {
     text-align: center;
@@ -457,8 +453,71 @@ body {
     letter-spacing: 1px;
 }
 
+/* MODAL DE VÍDEO EXPANSÍVEL (YOUTUBE OVERLAY) */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2500;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.video-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 850px;
+    background-color: #000000;
+    border: 2px solid #ff5500;
+    box-shadow: 0 0 35px rgba(255, 85, 0, 0.4);
+}
+
+.close-modal {
+    position: absolute;
+    top: -45px;
+    right: -5px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #ff5500;
+}
+
+.video-responsive-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* Ratio 16:9 Nativo */
+    height: 0;
+}
+
+.video-responsive-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 /* ==========================================================================
-   6. GRID DE PARCEIROS (COM SISTEMA DE ABAS)
+   6. GRID DE PARCEIROS
    ========================================================================== */
 .parceiros-paginacao-wrapper {
     position: relative;
@@ -522,7 +581,10 @@ body {
     box-shadow: 0 10px 20px rgba(255, 26, 26, 0.05);
 }
 
-.parceiro-card:hover::before { left: 100%; }
+.parceiro-card:hover::before {
+    left: 100%;
+}
+
 .parceiro-card:hover img {
     filter: grayscale(0%) opacity(100%);
     transform: scale(1.05);
@@ -628,75 +690,64 @@ body {
 }
 
 /* ==========================================================================
-   8. CORREÇÃO DEFINITIVA DO MODAL DE VÍDEO (FIXED)
+   8. GRID DE REDES SOCIAIS E ATENDIMENTO
    ========================================================================== */
-.video-modal {
-    display: none !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background-color: rgba(0, 0, 0, 0.93) !important;
-    padding: 20px !important;
-    z-index: 9999999 !important;
-    justify-content: center !important;
-    align-items: center !important;
+.grid-social {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
-.video-modal.active {
-    display: flex !important;
+.social-card {
+    background-color: #141414;
+    border: 1px solid #252525;
+    padding: 30px 20px;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+    display: block;
 }
 
-.video-modal .video-modal-content {
-    position: relative !important;
-    width: 95% !important;
-    max-width: 800px !important;
-    background-color: #000000 !important;
-    border: 3px solid #ff5500 !important;
-    border-radius: 12px !important;
-    padding: 8px !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+.social-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    transition: transform 0.3s ease;
 }
 
-.video-responsive-container {
-    position: relative !important;
-    width: 100% !important;
-    padding-bottom: 56.25% !important;
-    height: 0 !important;
-    overflow: hidden !important;
-    border-radius: 6px !important;
+.social-card h3 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.video-responsive-container iframe {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
+.social-card p {
+    color: #a6a6a6;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
-.close-modal {
-    position: absolute !important;
-    top: -45px !important;
-    right: 0 !important;
-    background: none !important;
-    border: none !important;
-    color: #ffffff !important;
-    font-size: 38px !important;
-    line-height: 1 !important;
-    cursor: pointer !important;
-    transition: color 0.2s !important;
-    z-index: 10000000 !important;
+.social-card:hover {
+    border-color: #ff5500;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 85, 0, 0.1);
 }
 
-.close-modal:hover {
-    color: #ff5500 !important;
+.social-card:hover .social-icon {
+    transform: scale(1.15);
+}
+
+.destaque-vendas {
+    border: 1px solid rgba(255, 85, 0, 0.4);
+    background: linear-gradient(180deg, #141414 0%, #1a1614 100%);
 }
 
 /* ==========================================================================
-   9. INTERRUPÇÃO E MEDIA QUERIES RESPONSIVAS (TABLET E CELULAR)
+   9. RESPONSIVO LAPIDADO (MENU HAMBÚRGUER E FIXES MOBILE)
    ========================================================================== */
 .menu-toggle {
     display: none;
@@ -723,13 +774,16 @@ body {
     background-color: #ff5500;
 }
 
-.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
 .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
     background-color: #ff5500;
 }
 
-/* --- ADAPTAÇÕES PARA DISPOSITIVOS ATÉ 950PX --- */
+/* Media Query Unificada para Tablets e Mobile */
 @media screen and (max-width: 950px) {
     body {
         padding-top: 70px;
@@ -796,16 +850,6 @@ body {
         opacity: 1 !important;
     }
 
-    .hero-title {
-        font-size: 1.8rem !important;
-        line-height: 1.2 !important;
-        max-width: 90% !important;
-        margin: 0 auto 10px auto !important;
-    }
-
-    .hero-subtitle { font-size: 1.3rem !important; }
-    .section-title { font-size: 1.8rem !important; }
-
     .container-flex,
     .container-flex.reverse {
         flex-direction: column !important;
@@ -818,6 +862,21 @@ body {
         height: 260px !important;
     }
 
+    .hero-title {
+        font-size: 1.8rem !important;
+        line-height: 1.2 !important;
+        max-width: 90% !important;
+        margin: 0 auto 10px auto !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem !important;
+    }
+
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+
     .grid-tres-colunas,
     .grid-social {
         grid-template-columns: 1fr !important;
@@ -827,58 +886,54 @@ body {
     .grid-parceiros {
         grid-template-columns: repeat(2, 1fr) !important;
     }
-}
 
-/* --- AJUSTE EXCLUSIVO MOBILE PROFISSIONAL (ENTRE 0 E 768PX) --- */
-@media (max-width: 768px) {
-    /* Ativa o efeito magnético de imã no scroll */
-    .carrossel-container {
-        gap: 12px !important;
-        padding: 10px 15px !important; 
-        scroll-snap-type: x mandatory !important;
-    }
-
-    /* AMPLIAÇÃO MÁXIMA DA IMAGEM: Ocupa 95% do celular com 420px de altura imponente */
-    .item-com-video,
-    .carrossel-item-standard,
-    .item-flip,
-    .carrossel-item {
-        flex: 0 0 95% !important;  
-        width: 95% !important;
-        height: 430px !important; 
-        scroll-snap-align: center !important; 
-    }
-
-    /* Redimensiona a caixa de imagem interna do Card 1 */
-    .item-com-video .img-wrapper {
-        height: calc(100% - 50px) !important;
-    }
-
-    .play-btn-inline {
-        height: 50px !important;
-        font-size: 14px !important;
-    }
-
-    /* Esconde as setas físicas (o arrastar de dedo na tela cheia substitui nativamente) */
     .carrossel-btn {
-        display: none !important; 
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.3rem !important;
+        z-index: 10 !important;
+    }
+
+    .btn-prev {
+        left: 8px !important;
+    }
+
+    .btn-next {
+        right: 8px !important;
     }
 
     .close-modal {
-        top: -42px !important;
-        right: 4px !important;
-        font-size: 44px !important;
+        top: -40px;
+        right: 0;
+        font-size: 2rem;
     }
 }
 
-/* --- AJUSTE EXTRACURTO PARA CELULARES PEQUENOS --- */
+/* Smartphone Ultra Pequenos */
+/* Smartphone Ultra Pequenos */
 @media screen and (max-width: 480px) {
-    .hero-title { font-size: 1.5rem !important; }
-    .grid-parceiros { grid-template-columns: 1fr !important; }
+    .hero-title {
+        font-size: 1.5rem !important;
+    }
+
+    .grid-parceiros {
+        grid-template-columns: 1fr !important;
+    }
+
+    .carrossel-item {
+        flex: 0 0 280px !important;
+        /* Ajustado levemente para dar melhor leitura de tela */
+        height: 340px !important;
+        scroll-margin: 15px !important;
+        /* Margem proporcional ao celular */
+    }
 }
 
 /* ==========================================================================
-   10. TELA DE ABERTURA (PRELOADER HALTER)
+   10. TELA DE ABERTURA COM HALTER GIRATÓRIO (PRELOADER)
    ========================================================================== */
 #preloader {
     position: fixed;
@@ -920,8 +975,13 @@ body {
 }
 
 @keyframes rodarHalter {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 #preloader.sumir {
