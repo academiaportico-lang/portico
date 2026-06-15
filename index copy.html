@@ -45,6 +45,15 @@
         </nav>
     </header>
 
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="hero-title">PÓRTICO Fitness Equipment</h2>
+            <p class="hero-subtitle">Portico Moldando o Ferro e Construindo Músculos.</p>
+            <a href="#equipamentos" class="btn-primary">Ver Linha de Fábrica</a>
+        </div>
+    </section>
+
     <section id="equipamentos" class="lp-section">
         <div class="container">
             <div class="center-title-block">
@@ -56,81 +65,35 @@
                 <button class="carrossel-btn btn-prev" aria-label="Voltar">‹</button>
 
                 <div class="carrossel-container" id="carrosselMaquinas">
-
-                    <div class="carrossel-item item-com-video">
-                        <div class="img-wrapper">
+                    <!--Teste -->
+                    <div class="carrossel-item item-video-abaixo">
+                        <div class="card-media">
                             <img src="IMG/maquina1.jpeg" alt="Equipamento 1">
                         </div>
-                        <button class="play-btn-inline btn-abrir-video" data-video="1aATfJITaIw"
-                            aria-label="Assistir vídeo do equipamento">
-                            <span class="play-icon-mini">▶</span> Assistir Vídeo
-                        </button>
+                        <div class="card-footer-video">
+                            <a href="https://www.youtube.com/watch?v=PrId74p9_Sg" data-video="PrId74p9_Sg"
+                                class="play-btn-inline" aria-label="Assistir vídeo do equipamento">
+                                <span class="play-icon-mini">▶</span> Assistir Vídeo
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="carrossel-item item-com-video">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina2.jpeg" alt="Equipamento 1">
+                    <div id="videoModal" class="video-modal">
+                        <div class="video-modal-content">
+                            <button class="close-modal" aria-label="Fechar vídeo">&times;</button>
+                            <div class="video-responsive-container">
+                                <iframe id="videoPlayer" src="" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
                         </div>
-                        <button class="play-btn-inline btn-abrir-video" data-video="LY90W4TS18c"
-                            aria-label="Assistir vídeo do equipamento">
-                            <span class="play-icon-mini">▶</span> Assistir Vídeo
-                        </button>
                     </div>
+                    <!--Fim do teste-->
 
-                    <!--div class="carrossel-item carrossel-item-standard">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina2.jpeg" alt="Equipamento 2">
-                        </div>
-                    </div-->
-
-                    <div class="carrossel-item item-com-video">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina3.jpeg" alt="Equipamento 1">
-                        </div>
-                        <button class="play-btn-inline btn-abrir-video" data-video="90_d-DsrOkE"
-                            aria-label="Assistir vídeo do equipamento">
-                            <span class="play-icon-mini">▶</span> Assistir Vídeo
-                        </button>
-                    </div>
-
-                    <!--div class="carrossel-item carrossel-item-standard">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina3.jpeg" alt="Equipamento 3">
-                        </div>
-                    </div-->
-
-                    <div class="carrossel-item item-com-video">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina4.jpeg" alt="Equipamento 1">
-                        </div>
-                        <button class="play-btn-inline btn-abrir-video" data-video="_ODbNIbo29M"
-                            aria-label="Assistir vídeo do equipamento">
-                            <span class="play-icon-mini">▶</span> Assistir Vídeo
-                        </button>
-                    </div>
-
-
-                    <!--div class="carrossel-item carrossel-item-standard">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina4.jpeg" alt="Equipamento 4">
-                        </div>
-                    </div-->
-
-                    <div class="carrossel-item item-com-video">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina5.jpeg" alt="Equipamento 1">
-                        </div>
-                        <button class="play-btn-inline btn-abrir-video" data-video="dQie7FIT7Gw"
-                            aria-label="Assistir vídeo do equipamento">
-                            <span class="play-icon-mini">▶</span> Assistir Vídeo
-                        </button>
-                    </div>
-
-                    <!--div class="carrossel-item carrossel-item-standard">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina5.jpeg" alt="Equipamento 5">
-                        </div>
-                    </div-->
+                    <div class="carrossel-item"><img src="IMG/maquina2.jpeg" alt="Equipamento 2"></div>
+                    <div class="carrossel-item"><img src="IMG/maquina3.jpeg" alt="Equipamento 3"></div>
+                    <div class="carrossel-item"><img src="IMG/maquina4.jpeg" alt="Equipamento 4"></div>
+                    <div class="carrossel-item"><img src="IMG/maquina5.jpeg" alt="Equipamento 5"></div>
 
                     <div class="carrossel-item item-flip">
                         <div class="flip-inner">
@@ -142,42 +105,27 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="carrossel-item item-flip">
                         <div class="flip-inner">
                             <div class="flip-front">
-                                <img src="IMG/maquina8.jpeg" alt="Equipamento 8 - Visão Inicial">
+                                <img src="IMG/maquina8.jpeg" alt="Equipamento 6 - Visão Inicial">
                             </div>
                             <div class="flip-back">
-                                <img src="IMG/maquina8_1.jpeg" alt="Equipamento 8 - Visão Alternativa">
+                                <img src="IMG/maquina8_1.jpeg" alt="Equipamento 6 - Visão Alternativa">
                             </div>
                         </div>
                     </div>
 
-                    <div class="carrossel-item carrossel-item-standard">
-                        <div class="img-wrapper">
-                            <img src="IMG/maquina7.jpeg" alt="Equipamento 7">
-                        </div>
-                    </div>
 
+                    <div class="carrossel-item"><img src="IMG/maquina7.jpeg" alt="Equipamento 7"></div>
                 </div>
-
-                <button class="carrossel-btn btn-next" aria-label="Avançar">›</button>
             </div>
-            <p class="carrossel-hint">← Arraste ou use as setas laterais para navegar →</p>
+
+            <button class="carrossel-btn btn-next" aria-label="Avançar">›</button>
+        </div>
+        <p class="carrossel-hint">← Arraste ou use as setas laterais para navegar →</p>
         </div>
     </section>
-
-    <div id="videoModal" class="video-modal">
-        <div class="video-modal-content">
-            <button class="close-modal" aria-label="Fechar vídeo">&times;</button>
-            <div class="video-responsive-container">
-                <iframe id="videoPlayer" src="" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
 
     <hr class="section-divider">
 
@@ -390,12 +338,14 @@
             const menuLinks = document.querySelectorAll('.menu a');
 
             if (menuToggle && menuPrincipal) {
+                // Abre e fecha o menu ao clicar no ícone de 3 risquinhos
                 menuToggle.addEventListener('click', function (e) {
-                    e.stopPropagation();
+                    e.stopPropagation(); // Evita bugs de clique duplo ou fechamento inesperado
                     menuToggle.classList.toggle('active');
                     menuPrincipal.classList.toggle('active');
                 });
 
+                // Fecha o menu automaticamente quando clicar em qualquer link (ir para uma seção)
                 menuLinks.forEach(link => {
                     link.addEventListener('click', function () {
                         menuToggle.classList.remove('active');
@@ -403,6 +353,7 @@
                     });
                 });
 
+                // Fecha o menu se o usuário clicar em qualquer outra parte da tela
                 document.addEventListener('click', function (e) {
                     if (!menuPrincipal.contains(e.target) && !menuToggle.contains(e.target)) {
                         menuToggle.classList.remove('active');
@@ -429,13 +380,12 @@
                     container.scrollBy({ left: -350, behavior: 'smooth' });
                 });
 
+                // Arrastar com o mouse (Drag to scroll)
                 let isPressed = false;
                 let startXPosition;
                 let currentScrollLeft;
 
                 container.addEventListener('mousedown', (e) => {
-                    if (e.target.closest('.play-btn-inline')) return;
-
                     isPressed = true;
                     startXPosition = e.pageX - container.offsetLeft;
                     currentScrollLeft = container.scrollLeft;
@@ -460,6 +410,7 @@
                     container.scrollLeft = currentScrollLeft - dist;
                 });
 
+                // Navegação pelas setas do teclado
                 container.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowRight') { e.preventDefault(); container.scrollBy({ left: 350, behavior: 'smooth' }); }
                     if (e.key === 'ArrowLeft') { e.preventDefault(); container.scrollBy({ left: -350, behavior: 'smooth' }); }
@@ -477,13 +428,16 @@
                     button.addEventListener('click', function () {
                         const targetId = this.getAttribute('data-target');
 
+                        // Altera botão ativo
                         pageButtons.forEach(btn => btn.classList.remove('active'));
                         this.classList.add('active');
 
+                        // Oculta todas as páginas de parceiros mudando a opacidade
                         grids.forEach(grid => {
                             grid.classList.remove('active');
                         });
 
+                        // Ativa a página clicada após pequeno delay para efeito visual limpo
                         const activeGrid = document.getElementById(targetId);
                         if (activeGrid) {
                             activeGrid.classList.add('active');
@@ -491,56 +445,13 @@
                     });
                 });
             }
-
-            // ==========================================================================
-            // 4. LÓGICA DO MODAL DE VÍDEO
-            // ==========================================================================
-            const playButtons = document.querySelectorAll(".btn-abrir-video");
-            const modal = document.getElementById("videoModal");
-            const player = document.getElementById("videoPlayer");
-            const closeBtn = document.querySelector(".close-modal");
-
-            if (playButtons.length > 0 && modal && player && closeBtn) {
-                playButtons.forEach(button => {
-                    button.addEventListener("click", function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        const videoId = this.getAttribute("data-video");
-
-                        if (videoId) {
-                            player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-                            //Linha abaixo o video fica repetindo
-                            //player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&loop=1&playlist=${videoId}`;
-                            modal.classList.add("active");
-                        }
-                    });
-                });
-
-                closeBtn.addEventListener("click", function (e) {
-                    e.stopPropagation();
-                    modal.classList.remove("active");
-                    player.src = "";
-                });
-
-                modal.addEventListener("click", function (e) {
-                    if (e.target === modal) {
-                        modal.classList.remove("active");
-                        player.src = "";
-                    }
-                });
-            }
         });
 
-        // ==========================================================================
-        // 5. CONTROLADOR DO PRELOADER
-        // ==========================================================================
+        // Aguarda a página carregar e conta 3 segundos (3000 milissegundos)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
-                if (preloader) {
-                    preloader.classList.add('sumir');
-                }
+                preloader.classList.add('sumir'); // Faz a tela de abertura sumir suavemente
             }, 3000);
         });
     </script>

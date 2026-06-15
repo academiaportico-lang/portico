@@ -261,7 +261,7 @@ body {
 }
 
 /* ==========================================================================
-   5. CARROSSEL DE EQUIPAMENTOS (DESKTOP PADRÃO)
+   5. CARROSSEL DE EQUIPAMENTOS E CONFIGURAÇÃO FLIP 3D (MÁQUINA 6)
    ========================================================================== */
 .carrossel-wrapper {
     position: relative;
@@ -271,17 +271,18 @@ body {
 }
 
 .carrossel-container {
-    display: flex !important;
-    gap: 20px !important;
-    overflow-x: auto !important;
-    scroll-behavior: smooth !important;
-    padding: 15px 0 !important;
-    scrollbar-width: none !important;
     width: 100%;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    outline: none;
 }
 
 .carrossel-container::-webkit-scrollbar {
-    display: none !important;
+    display: none;
 }
 
 .carrossel-track {
@@ -290,35 +291,36 @@ body {
     gap: 25px;
 }
 
-/* Base de tamanho idêntica para todos os cards no PC */
-.item-com-video,
-.carrossel-item-standard,
-.item-flip,
-.carrossel-item {
-    flex: 0 0 300px !important;
-    width: 300px !important;
-    height: 400px !important;
-    position: relative !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    background-color: #111 !important;
+/* Configuração base para itens comuns do carrossel */
+/* Configuração base para itens comuns e itens com flip do carrossel */
+.carrossel-item,
+.carrossel-item.item-flip {
+    flex: 0 0 320px;
+    scroll-snap-align: center;
+    height: 400px;
+    background-color: #161616;
+    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+    /* Garante que a borda antiga de 1px ou 2px sumiu */
+
+    /* AS DUAS SOMBRAS JUNTAS NA MESMA LINHA: */
     box-shadow: 0 0 0 0.5px #ff5500, 0 0 15px rgba(150, 235, 212, 0.4);
+
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Controle de imagens globais do carrossel */
-.carrossel-container img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
+.carrossel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.5s ease;
     filter: grayscale(30%);
     user-select: none;
     -webkit-user-drag: none;
 }
 
-/* Hover estrutural nos itens comuns */
+/* Efeito Hover nos itens normais: Borda branca e sombra branca */
 .carrossel-item:not(.item-flip):hover {
     transform: scale(1.03);
     border-color: #ffffff;
@@ -330,52 +332,7 @@ body {
     filter: grayscale(0%);
 }
 
-/* Embrulho de imagem para itens que necessitam cálculo (Card 1) */
-.img-wrapper {
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
-}
-
-.item-com-video .img-wrapper {
-    height: calc(100% - 50px) !important;
-}
-
-/* ==========================================================================
-   BOTÃO ASSISTIR VÍDEO (CARD 1)
-   ========================================================================== */
-.play-btn-inline {
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 50px !important;
-    background-color: #ff5500 !important;
-    border: none !important;
-    color: #ffffff !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    text-transform: uppercase !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    z-index: 10 !important;
-    transition: background 0.2s ease-in-out !important;
-}
-
-.play-btn-inline:hover {
-    background-color: #e04b00 !important;
-}
-
-.play-icon-mini {
-    font-size: 12px !important;
-}
-
-/* ==========================================================================
-   CONFIGURAÇÃO E CORREÇÃO DO EFEITO FLIP 3D
-   ========================================================================== */
+/* Remove estilos do contêiner externo do flip para não duplicar bordas */
 .item-flip {
     perspective: 1000px;
     background-color: transparent !important;
@@ -383,32 +340,44 @@ body {
     box-shadow: none !important;
 }
 
-.item-flip .flip-inner {
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transform-style: preserve-3d !important;
-    border-radius: 8px !important;
+/* Elemento interno do flip que recebe as bordas e sombras */
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    /* ADICIONADO: Borda alaranjada e sombra no card 3D */
     border: 2px solid #ff5500;
     box-shadow: 0 0 15px rgba(255, 85, 0, 0.4);
 }
 
+/* Efeito Hover no item flip: Gira o card, muda a borda para branca com sombra branca */
 .item-flip:hover .flip-inner {
-    transform: rotateY(180deg) !important;
+    transform: rotateY(180deg);
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
 }
 
 .flip-front,
 .flip-back {
-    position: absolute !important;
-    width: 100% !important;
-    height: 100% !important;
-    -webkit-backface-visibility: hidden !important;
-    backface-visibility: hidden !important;
-    border-radius: 6px !important;
-    overflow: hidden !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 6px;
+    /* Ajuste sutil para casar com a borda externa */
+    overflow: hidden;
+}
+
+.flip-front img,
+.flip-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .flip-front {
@@ -418,10 +387,9 @@ body {
 
 .flip-back {
     background-color: #161616;
-    transform: rotateY(180deg) !important;
+    transform: rotateY(180deg);
 }
 
-/* Controles de Navegação do Carrossel */
 .carrossel-btn {
     position: absolute;
     top: 50%;
@@ -445,8 +413,13 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-.btn-prev { left: -15px; }
-.btn-next { right: -15px; }
+.btn-prev {
+    left: -15px;
+}
+
+.btn-next {
+    right: -15px;
+}
 
 .carrossel-hint {
     text-align: center;
@@ -458,7 +431,7 @@ body {
 }
 
 /* ==========================================================================
-   6. GRID DE PARCEIROS (COM SISTEMA DE ABAS)
+   6. GRID DE PARCEIROS (COM SISTEMA DE TRANSIÇÃO EM ABAS/PÁGINAS)
    ========================================================================== */
 .parceiros-paginacao-wrapper {
     position: relative;
@@ -522,7 +495,10 @@ body {
     box-shadow: 0 10px 20px rgba(255, 26, 26, 0.05);
 }
 
-.parceiro-card:hover::before { left: 100%; }
+.parceiro-card:hover::before {
+    left: 100%;
+}
+
 .parceiro-card:hover img {
     filter: grayscale(0%) opacity(100%);
     transform: scale(1.05);
@@ -628,46 +604,305 @@ body {
 }
 
 /* ==========================================================================
-   8. CORREÇÃO DEFINITIVA DO MODAL DE VÍDEO (FIXED)
+   ESTILIZAÇÃO FORÇADA E PADRÃO DO CARROSSEL
    ========================================================================== */
+
+/* Contêiner Geral da lista do Carrossel */
+.carrossel-container {
+    display: flex !important;
+    gap: 20px !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth !important;
+    padding: 15px 0 !important;
+    scrollbar-width: none !important;
+    /* Esconde scroll no Firefox */
+}
+
+.carrossel-container::-webkit-scrollbar {
+    display: none !important;
+    /* Esconde scroll no Chrome/Safari */
+}
+
+/* Base de tamanho idêntica para todos os itens do carrossel */
+.item-com-video,
+.carrossel-item-standard,
+.item-flip {
+    flex: 0 0 300px !important;
+    /* Altera para o tamanho que desejar a largura dos cards */
+    width: 300px !important;
+    height: 400px !important;
+    /* Altura padrão para todos os cards ficarem alinhados */
+    position: relative !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    /* Importante para o card, por isso o modal precisa de position fixed */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    background-color: #111 !important;
+}
+
+/* Embrulho da imagem para controle de proporção */
+.img-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Força qualquer imagem do carrossel a cobrir o espaço sem quebrar o layout */
+.carrossel-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    /* Corta inteligentemente sem distorcer */
+    display: block !important;
+}
+
+/* Ajuste específico para o Item 1 não cobrir o botão */
+.item-com-video .img-wrapper {
+    height: calc(100% - 50px) !important;
+    /* Abre espaço exato de 50px para o botão embaixo */
+}
+
+/* ==========================================================================
+   BOTÃO ASSISTIR VÍDEO (FIXADO NO RODAPÉ DO CARD 1)
+   ========================================================================== */
+.play-btn-inline {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 50px !important;
+    background-color: #ff5500 !important;
+    /* Laranja Língua da Pórtico */
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    z-index: 10 !important;
+    transition: background 0.2s ease-in-out !important;
+}
+
+.play-btn-inline:hover {
+    background-color: #e04b00 !important;
+}
+
+.play-icon-mini {
+    font-size: 12px !important;
+}
+
+/* ==========================================================================
+   CORREÇÃO DO EFEITO FLIP (MÁQUINAS 6 E 8)
+   ========================================================================== */
+.item-flip .flip-inner {
+    width: 100% !important;
+    height: 100% !important;
+    transition: transform 0.6s !important;
+    transform-style: preserve-3d !important;
+    position: relative !important;
+}
+
+.item-flip:hover .flip-inner {
+    transform: rotateY(180deg) !important;
+}
+
+.flip-front,
+.flip-back {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    backface-visibility: hidden !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.flip-back {
+    transform: rotateY(180deg) !important;
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO FORÇADA E PADRÃO DO CARROSSEL
+   ========================================================================== */
+
+/* Contêiner Geral da lista do Carrossel */
+.carrossel-container {
+    display: flex !important;
+    gap: 20px !important;
+    overflow-x: auto !important;
+    scroll-behavior: smooth !important;
+    padding: 15px 0 !important;
+    scrollbar-width: none !important;
+    /* Esconde scroll no Firefox */
+}
+
+.carrossel-container::-webkit-scrollbar {
+    display: none !important;
+    /* Esconde scroll no Chrome/Safari */
+}
+
+/* Base de tamanho idêntica para todos os itens do carrossel */
+.item-com-video,
+.carrossel-item-standard,
+.item-flip {
+    flex: 0 0 300px !important;
+    /* Altera para o tamanho que desejar a largura dos cards */
+    width: 300px !important;
+    height: 400px !important;
+    /* Altura padrão para todos os cards ficarem alinhados */
+    position: relative !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    background-color: #111 !important;
+}
+
+/* Embrulho da imagem para controle de proporção */
+.img-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Força qualquer imagem do carrossel a cobrir o espaço sem quebrar o layout */
+.carrossel-container img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    /* Corta inteligentemente sem distorcer */
+    display: block !important;
+}
+
+/* Ajuste específico para o Item 1 não cobrir o botão */
+.item-com-video .img-wrapper {
+    height: calc(100% - 50px) !important;
+    /* Abre espaço exato de 50px para o botão embaixo */
+}
+
+/* ==========================================================================
+   BOTÃO ASSISTIR VÍDEO (FIXADO NO RODAPÉ DO CARD 1)
+   ========================================================================== */
+.play-btn-inline {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 50px !important;
+    background-color: #ff5500 !important;
+    /* Laranja Língua da Pórtico */
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    z-index: 10 !important;
+    transition: background 0.2s ease-in-out !important;
+}
+
+.play-btn-inline:hover {
+    background-color: #e04b00 !important;
+}
+
+.play-icon-mini {
+    font-size: 12px !important;
+}
+
+/* ==========================================================================
+   CORREÇÃO DO EFEITO FLIP (MÁQUINAS 6 E 8)
+   ========================================================================== */
+.item-flip .flip-inner {
+    width: 100% !important;
+    height: 100% !important;
+    transition: transform 0.6s !important;
+    transform-style: preserve-3d !important;
+    position: relative !important;
+}
+
+.item-flip:hover .flip-inner {
+    transform: rotateY(180deg) !important;
+}
+
+.flip-front,
+.flip-back {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    backface-visibility: hidden !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.flip-back {
+    transform: rotateY(180deg) !important;
+}
+
+/* ==========================================================================
+   CORREÇÃO DEFINITIVA DO MODAL DE VÍDEO (YOUTUBE)
+   ========================================================================== */
+
+/* Container de fundo do Modal - Padrão Oculto */
 .video-modal {
     display: none !important;
+    /* Escondido por padrão */
     position: fixed !important;
+    /* Fixado na tela do navegador, ignora rolagens */
     top: 0 !important;
     left: 0 !important;
     width: 100vw !important;
+    /* Ocupa toda a largura da janela */
     height: 100vh !important;
-    background-color: rgba(0, 0, 0, 0.93) !important;
-    padding: 20px !important;
-    z-index: 9999999 !important;
+    /* Ocupa toda a altura da janela */
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    /* Fundo preto transparente */
+    z-index: 999999 !important;
+    /* Camada superior absoluta (passa por cima do menu) */
+
+    /* Centralização perfeita */
     justify-content: center !important;
     align-items: center !important;
 }
 
+/* Classe ativada pelo seu JavaScript ao clicar no botão */
 .video-modal.active {
     display: flex !important;
+    /* Exibe o modal centralizado */
 }
 
+/* Caixa interna que segura o conteúdo do vídeo */
 .video-modal .video-modal-content {
     position: relative !important;
-    width: 95% !important;
+    width: 90% !important;
     max-width: 800px !important;
+    /* Largura máxima elegante na tela */
     background-color: #000000 !important;
     border: 3px solid #ff5500 !important;
+    /* Borda Laranja da marca Pórtico */
     border-radius: 12px !important;
-    padding: 8px !important;
+    padding: 10px !important;
+    /* Espaçamento interno */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
 }
 
+/* Container responsivo 16:9 interno (para o iframe do YouTube) */
 .video-responsive-container {
     position: relative !important;
     width: 100% !important;
     padding-bottom: 56.25% !important;
+    /* Proporção mágica para vídeos 16:9 */
     height: 0 !important;
     overflow: hidden !important;
     border-radius: 6px !important;
 }
 
+/* Força o iframe do YouTube a preencher o espaço responsivo */
 .video-responsive-container iframe {
     position: absolute !important;
     top: 0 !important;
@@ -677,26 +912,117 @@ body {
     border: none !important;
 }
 
+/* Botão de Fechar (&times;) posicionado no canto superior direito do modal */
 .close-modal {
     position: absolute !important;
     top: -45px !important;
+    /* Joga o botão ligeiramente para cima da caixa */
     right: 0 !important;
     background: none !important;
     border: none !important;
     color: #ffffff !important;
-    font-size: 38px !important;
+    font-size: 35px !important;
     line-height: 1 !important;
     cursor: pointer !important;
     transition: color 0.2s !important;
-    z-index: 10000000 !important;
+    z-index: 1000000 !important;
 }
 
 .close-modal:hover {
     color: #ff5500 !important;
+    /* Muda para laranja ao passar o mouse */
 }
 
 /* ==========================================================================
-   9. INTERRUPÇÃO E MEDIA QUERIES RESPONSIVAS (TABLET E CELULAR)
+   MÓDULO DO MODAL DE VÍDEO 100% RESPONSIVO (COMPUTADOR, TABLET E CELULAR)
+   ========================================================================== */
+
+/* 1. Fundo do Modal (Cobre a tela inteira e fixa) */
+.video-modal {
+    display: none !important;        /* Oculto por padrão, ativado via JS */
+    position: fixed !important;       /* Fixado no navegador, ignora scrolls */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;          /* Ocupa toda a largura visível */
+    height: 100vh !important;         /* Ocupa toda a altura visível */
+    background-color: rgba(0, 0, 0, 0.9) !important; /* Fundo preto bem denso */
+    z-index: 999999 !important;       /* Camada máxima sobre o site */
+    
+    /* Centralização Absoluta */
+    display: none; 
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 20px !important;         /* Margem de segurança para o modal nunca colar na tela */
+    box-sizing: border-box !important;
+}
+
+/* Ativação do display via classe JavaScript (.active) */
+.video-modal.active {
+    display: flex !important;         
+}
+
+/* 2. Caixa do Conteúdo do Modal (Onde fica o vídeo) */
+.video-modal .video-modal-content {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 850px !important;      /* Limite máximo para telas grandes (PC) */
+    background-color: #000000 !important;
+    border: 3px solid #ff5500 !important; /* Linha de identidade da Pórtico */
+    border-radius: 12px !important;
+    padding: 6px !important;          /* Espaço interno para a borda respirar */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9) !important;
+    box-sizing: border-box !important;
+}
+
+/* 3. Container interno que força a proporção correta do Player do YouTube */
+.video-responsive-container {
+    position: relative !important;
+    width: 100% !important;
+    padding-bottom: 56.25% !important; /* Proporção matemática perfeita para 16:9 */
+    height: 0 !important;
+    overflow: hidden !important;
+    border-radius: 6px !important;
+}
+
+/* Força o Iframe do YouTube a preencher a proporção responsiva */
+.video-responsive-container iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+}
+
+/* 4. Botão de Fechar (&times;) Inteligente e Adaptável */
+.close-modal {
+    position: absolute !important;
+    top: -50px !important;            /* Fica acima da caixa do vídeo no PC */
+    right: 0 !important;
+    background: none !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 40px !important;       /* Tamanho nítido e visível */
+    line-height: 1 !important;
+    cursor: pointer !important;
+    transition: color 0.2s, transform 0.2s !important;
+    z-index: 1000001 !important;
+}
+
+.close-modal:hover {
+    color: #ff5500 !important;        /* Transição para o Laranja no hover */
+    transform: scale(1.1) !important; /* Leve pulsação ao passar o mouse */
+}
+
+
+/* ==========================================================================
+   MEDIA QUERIES (ADAPTATIVIDADE DE TELAS)
+   ========================================================================== */
+
+/* ---FIM TABLETS E TEL
+
+/* ==========================================================================
+   9. RESPONSIVO LAPIDADO (MENU HAMBÚRGUER, HALTER À ESQUERDA E FIXES)
    ========================================================================== */
 .menu-toggle {
     display: none;
@@ -723,13 +1049,15 @@ body {
     background-color: #ff5500;
 }
 
-.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
 .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
     background-color: #ff5500;
 }
 
-/* --- ADAPTAÇÕES PARA DISPOSITIVOS ATÉ 950PX --- */
 @media screen and (max-width: 950px) {
     body {
         padding-top: 70px;
@@ -803,8 +1131,13 @@ body {
         margin: 0 auto 10px auto !important;
     }
 
-    .hero-subtitle { font-size: 1.3rem !important; }
-    .section-title { font-size: 1.8rem !important; }
+    .hero-subtitle {
+        font-size: 1.3rem !important;
+    }
+
+    .section-title {
+        font-size: 1.8rem !important;
+    }
 
     .container-flex,
     .container-flex.reverse {
@@ -827,58 +1160,43 @@ body {
     .grid-parceiros {
         grid-template-columns: repeat(2, 1fr) !important;
     }
-}
 
-/* --- AJUSTE EXCLUSIVO MOBILE PROFISSIONAL (ENTRE 0 E 768PX) --- */
-@media (max-width: 768px) {
-    /* Ativa o efeito magnético de imã no scroll */
-    .carrossel-container {
-        gap: 12px !important;
-        padding: 10px 15px !important; 
-        scroll-snap-type: x mandatory !important;
-    }
-
-    /* AMPLIAÇÃO MÁXIMA DA IMAGEM: Ocupa 95% do celular com 420px de altura imponente */
-    .item-com-video,
-    .carrossel-item-standard,
-    .item-flip,
-    .carrossel-item {
-        flex: 0 0 95% !important;  
-        width: 95% !important;
-        height: 430px !important; 
-        scroll-snap-align: center !important; 
-    }
-
-    /* Redimensiona a caixa de imagem interna do Card 1 */
-    .item-com-video .img-wrapper {
-        height: calc(100% - 50px) !important;
-    }
-
-    .play-btn-inline {
-        height: 50px !important;
-        font-size: 14px !important;
-    }
-
-    /* Esconde as setas físicas (o arrastar de dedo na tela cheia substitui nativamente) */
     .carrossel-btn {
-        display: none !important; 
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.3rem !important;
+        z-index: 10 !important;
     }
 
-    .close-modal {
-        top: -42px !important;
-        right: 4px !important;
-        font-size: 44px !important;
+    .btn-prev {
+        left: 8px !important;
+    }
+
+    .btn-next {
+        right: 8px !important;
     }
 }
 
-/* --- AJUSTE EXTRACURTO PARA CELULARES PEQUENOS --- */
 @media screen and (max-width: 480px) {
-    .hero-title { font-size: 1.5rem !important; }
-    .grid-parceiros { grid-template-columns: 1fr !important; }
+    .hero-title {
+        font-size: 1.5rem !important;
+    }
+
+    .grid-parceiros {
+        grid-template-columns: 1fr !important;
+    }
+
+    .carrossel-item {
+        flex: 0 0 260px !important;
+        height: 320px !important;
+    }
 }
 
 /* ==========================================================================
-   10. TELA DE ABERTURA (PRELOADER HALTER)
+   10. TELA DE ABERTURA COM HALTER GIRATÓRIO E TEXTO
    ========================================================================== */
 #preloader {
     position: fixed;
@@ -920,8 +1238,13 @@ body {
 }
 
 @keyframes rodarHalter {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 #preloader.sumir {
