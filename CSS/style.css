@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. RESET E CONFIGURAÇÕES GERAIS
+   1. RESET & CONFIGURAÇÕES GERAIS
    ========================================================================== */
 * {
     margin: 0;
@@ -13,15 +13,488 @@ html {
 }
 
 body {
-    background-color: #0d0d0d;
-    color: #e0e0e0;
-    padding-top: 80px;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    overflow-x: hidden;
 }
 
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #222, transparent);
+    margin: 40px 0;
+}
+
+/* ==========================================================================
+   2. PRELOADER
+   ========================================================================== */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#preloader.sumir {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-halter {
+    font-size: 2.5rem;
+    color: #ff0000;
+    margin-bottom: 15px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loader-text {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   3. HEADER & MENU (NAVBAR) - COM EFEITO LINHA + HALTER ABÓBORA
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(10, 10, 10, 0.95);
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 1000;
+}
+
+.logo-header {
+    height: 45px;
+    object-fit: contain;
+}
+
+.menu {
+    display: flex;
+    gap: 55px;
+}
+
+.menu a {
+    color: #aaaaaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    /* CRUCIAL: Base para posicionar a linha e o halter */
+    padding: 8px 0 20px 0;
+    transition: color 0.3s ease;
+}
+
+/* Cor do texto ao passar o mouse */
+.menu a:hover {
+    color: #ff5500;
+    /* Texto cor abóbora no hover */
+}
+
+/* --------------------------------------------------------------------------
+   EFEITO 1: O HALTER (Surge com efeito elástico abaixo do link)
+   -------------------------------------------------------------------------- */
+.menu a::before {
+    content: '❚█══█❚';
+    position: absolute;
+    bottom: -15px;
+    /* Ajuste fino para não colar na borda da navbar */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    font-size: 0.7rem;
+    color: #ff5500;
+    /* Cor Abóbora */
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+    pointer-events: none;
+}
+
+/* Ativação do Halter no Hover */
+.menu a:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   EFEITO 2: A LINHA (Cresce da esquerda para a direita)
+   -------------------------------------------------------------------------- */
+.menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    /* Fica logo abaixo do texto, acima do halter */
+    left: 0;
+    width: 0;
+    /* Começa zerada */
+    height: 2px;
+    /* Espessura da linha */
+    background-color: #ff5500;
+    /* Cor Abóbora */
+    transition: width 0.3s ease;
+    pointer-events: none;
+}
+
+/* Ativação da Linha no Hover */
+.menu a:hover::after {
+    width: 100%;
+    /* Expande até cobrir 100% da largura do link */
+}
+
+/* Botão Mobile */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background-color: #ffffff;
+    transition: 0.3s ease;
+}
+
+/* ==========================================================================
+   4. HERO SECTION
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background: url('../IMG/hero-bg.jpg') center/cover no-repeat;
+    /* Ajuste a imagem se necessário */
+    background-color: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.9));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    color: #cccccc;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 14px 35px;
+    background-color: #ff0000;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   5. SEÇÃO EQUIPAMENTOS & CARROSSEL DEFINTIVO
+   ========================================================================== */
+.lp-section {
+    padding: 60px 0;
+}
+
+.center-title-block {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-badge {
+    color: #ff0000;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* Estrutura Externa do Carrossel */
+.carrossel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* O Trilho do Carrossel */
+.carrossel-container {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 15px 5px;
+    /* Espaço para o Box-Shadow do hover respirar livre */
+    width: 100%;
+    scrollbar-width: none;
+    /* Esconde barra no Firefox */
+}
+
+.carrossel-container::-webkit-scrollbar {
+    display: none;
+    /* Esconde barra no Chrome/Safari */
+}
+
+/* O CARD (MÁXIMO ACABAMENTO) */
+.carrossel-item {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    height: 440px;
+    background-color: #141414;
+    border: 1px solid #222222;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    /* Margem interna protetora para a imagem e botão */
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Efeito Hover do Card (A Borda Vermelha que Nunca Some) */
+.carrossel-item:hover {
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+/* Container de Mídia (A Moldura da Foto) */
+.card-media {
+    flex: 1;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Tranca o zoom da foto aqui dentro */
+    position: relative;
+    background-color: #0a0a0a;
+}
+
+/* A Imagem em Aspecto Vitrine Perfeito */
+.card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    /* Garante foco total no letreiro PÓRTICO */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Efeito Zoom Inteligente na Foto */
+.carrossel-item:hover .card-media img {
+    transform: scale(1.06);
+}
+
+/* Rodapé do Card (Espaço Isolado do Botão de Vídeo) */
+.card-footer-video {
+    width: 100%;
+    padding-top: 12px;
+    /* Afastamento cirúrgico da base da imagem */
+}
+
+.play-btn-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 0;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: 1px solid #2a2a2a;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.carrossel-item:hover .play-btn-inline {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: #ffffff;
+}
+
+.play-icon-mini {
+    font-size: 0.75rem;
+}
+
+/* CARD COM ESTILO FLIP (Giro de 360°) */
+.item-flip {
+    perspective: 1000px;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    /* Reseta o padding para o flip usar a área total */
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+}
+
+.item-flip:hover .flip-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    border: 1px solid #222222;
+    overflow: hidden;
+    padding: 12px;
+    background-color: #141414;
+}
+
+.item-flip:hover .flip-front,
+.item-flip:hover .flip-back {
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+.flip-back {
+    transform: rotateY(180deg);
+}
+
+.flip-front img,
+.flip-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 8px;
+}
+
+/* Setas de Navegação */
+.carrossel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(20, 20, 20, 0.85);
+    border: 1px solid #333333;
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.carrossel-btn:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.btn-prev {
+    left: -22px;
+}
+
+.btn-next {
+    right: -22px;
+}
+
+.carrossel-hint {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666666;
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   6. SEÇÕES DE CONTEÚDO (TECNOLOGIA, SOLUÇÕES, SOBRE)
+   ========================================================================== */
+.bg-dark-section {
+    background-color: #0d0d0d;
 }
 
 .container-flex {
@@ -34,440 +507,230 @@ body {
     flex-direction: row-reverse;
 }
 
-.section-divider {
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #222, transparent);
+.text-block,
+.image-block {
+    flex: 1;
 }
 
-/* ==========================================================================
-   2. NAVBAR COM LINHA, HOVER BOMBADO E HALTER ESTILIZADO
-   ========================================================================== */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 7px 5%;
-    background-color: #313131;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.logo-area h1 img {
-    max-height: 50px;
-    display: block;
-    filter: drop-shadow(0px 0px 25px #ff5500);
-}
-
-.menu {
-    display: flex;
-    align-items: center;
-}
-
-.menu a {
-    text-decoration: none;
-    color: #e0e0e0;
-    font-weight: 500;
-    margin: 0 14px;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    padding: 6px 0;
-    display: inline-block;
-    transition: color 0.2s ease, text-shadow 0.2s ease, -webkit-text-stroke 0.2s ease;
-}
-
-.menu a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #ff5500;
-    transform-origin: bottom right;
-    transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-.menu a::before {
-    content: '❚█══█❚';
-    position: absolute;
-    bottom: -16px;
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-    font-size: 0.75rem;
-    color: #ff5500;
-    opacity: 0;
-    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
-}
-
-.menu a:hover {
-    color: #ff5500;
-    -webkit-text-stroke: 0.5px #ff5500;
-    text-shadow: 0 0 1px rgba(255, 85, 0, 0.3);
-}
-
-.menu a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
-.menu a:hover::before {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-
-/* ==========================================================================
-   3. HERO SECTION
-   ========================================================================== */
-.hero-section {
-    position: relative;
-    width: 100%;
-    height: 75vh;
-    background: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1920') no-repeat center center/cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.85) 100%);
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-}
-
-.hero-title {
-    font-size: 3rem;
-    font-weight: 900;
-    color: #ffffff;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.hero-subtitle {
-    font-family: 'Caveat', cursive !important;
-    font-size: 2.8rem;
-    color: #ff5500;
-    margin-bottom: 30px;
-}
-
-.btn-primary {
-    text-decoration: none;
-    background-color: transparent;
-    color: #ffffff;
-    border: 2px solid #ffffff;
-    padding: 12px 35px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-/* ==========================================================================
-   4. SEÇÕES E LISTAS
-   ========================================================================== */
-.lp-section {
-    padding: 80px 0;
-    background-color: #0d0d0d;
-}
-
-.bg-dark-section {
-    background-color: #121212;
-}
-
-.center-title-block {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-badge {
-    color: #ff1a1a;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    display: block;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px #ff5500;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #ffffff;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px #ff5500;
-}
-
-.text-block p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #b3b3b3;
+.lp-list {
+    list-style: none;
+    margin-top: 20px;
 }
 
 .lp-list li {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #b3b3b3;
-    margin-bottom: 15px;
     position: relative;
     padding-left: 25px;
-    list-style: none;
+    margin-bottom: 15px;
+    color: #cccccc;
+    line-height: 1.6;
 }
 
 .lp-list li::before {
     content: "■";
     position: absolute;
     left: 0;
-    color: #ff1a1a;
+    color: #ff0000;
+    font-size: 0.8rem;
     top: 2px;
 }
 
-.image-block {
-    flex: 1;
-    min-width: 400px;
-    height: 380px;
-    border-radius: 6px;
-    overflow: hidden;
-    background-color: #1a1a1a;
+.sobre-img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #222222;
+    object-fit: cover;
 }
 
-/* ==========================================================================
-   5. CARROSSEL DE EQUIPAMENTOS E CONFIGURAÇÃO FLIP 3D + CARD DE VÍDEO
-   ========================================================================== */
-.carrossel-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.carrossel-container {
-    width: 100%;
-    overflow-x: auto;
-    padding: 20px 0;
-    /* Removido paddings laterais estáticos se houver */
-    scroll-snap-type: x proximity;
-    /* Mudado de mandatory para proximity */
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    cursor: grab;
-    outline: none;
-    display: flex;
+/* Grid de Soluções */
+.grid-tres-colunas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
-.carrossel-container::-webkit-scrollbar {
-    display: none;
-}
-
-.carrossel-item {
-    flex: 0 0 320px;
-    scroll-snap-align: start;
-    /* Mudado de center para start para estabilizar as pontas */
-    scroll-margin: 20px;
-    /* Garante que o item pare exatamente a 20px da borda da tela */
-    height: 400px;
-    background-color: #161616;
+.card {
+    background-color: #141414;
+    border: 1px solid #222222;
+    padding: 30px;
     border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #222;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    transition: border-color 0.3s ease;
+}
+
+.card:hover {
+    border-color: #ff0000;
+}
+
+.card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.card p {
+    color: #999999;
+    line-height: 1.5;
+}
+
+.sobre-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.mini-quote {
+    border-left: 3px solid #ff0000;
+    padding-left: 20px;
+    margin-top: 25px;
+    font-style: italic;
+    color: #dddddd;
+}
+
+/* ==========================================================================
+   7. PARCEIROS & PAGINAÇÃO
+   ========================================================================== */
+.parceiros-paginacao-wrapper {
+    position: relative;
+}
+
+.grid-parceiros {
+    display: none;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 20px;
+}
+
+.grid-parceiros.active {
+    display: grid;
+}
+
+.parceiro-card {
+    background-color: #141414;
+    border: 1px solid #222222;
+    height: 90px;
+    border-radius: 6px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 }
 
-.carrossel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-    filter: grayscale(30%);
-    user-select: none;
-    -webkit-user-drag: none;
+.parceiro-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: 0.3s ease;
 }
 
-.carrossel-item:not(.item-flip):hover {
-    transform: scale(1.03);
-    border-color: #ff1a1a;
-}
-
-.carrossel-item:not(.item-flip):hover img {
-    transform: scale(1.06);
+.parceiro-card:hover img {
     filter: grayscale(0%);
+    opacity: 1;
 }
 
-/* Ajustes de Layout para Cards com Linha de Vídeo Embaixo */
-.item-video-abaixo {
+.parceiros-controls {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
 }
 
-.item-video-abaixo .card-media {
-    flex: 1;
-    overflow: hidden;
-    width: 100%;
+.btn-page {
+    background-color: #1c1c1c;
+    border: 1px solid #333333;
+    color: #ffffff;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
 }
 
-.card-footer-video {
-    background-color: #1a1a1a;
-    padding: 14px;
-    text-align: center;
-    border-top: 1px solid #282828;
+.btn-page.active,
+.btn-page:hover {
+    background-color: #ff0000;
+    border-color: #ff0000;
 }
 
-.play-btn-inline {
+/* ==========================================================================
+   8. REDES SOCIAIS & FOOTER
+   ========================================================================== */
+.grid-social {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.social-card {
+    background-color: #141414;
+    border: 1px solid #222222;
+    padding: 25px;
+    border-radius: 8px;
     text-decoration: none;
     color: #ffffff;
-    font-weight: 700;
-    font-size: 0.85rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.play-btn-inline:hover {
-    color: #ff5500;
-}
-
-.play-icon-mini {
-    color: #ff5500;
-    font-size: 0.75rem;
-}
-
-/* Configurações do Flip 3D */
-.item-flip {
-    perspective: 1000px;
-    background-color: transparent !important;
-    border: none !important;
-}
-
-.flip-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
-    border-radius: 8px;
-    border: 1px solid #222;
-}
-
-.item-flip:hover .flip-inner {
-    transform: rotateY(180deg);
-    border-color: #ff5500;
-}
-
-.flip-front,
-.flip-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 7px;
-    overflow: hidden;
-}
-
-.flip-front img,
-.flip-back img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.flip-front {
-    background-color: #161616;
-    z-index: 2;
-}
-
-.flip-back {
-    background-color: #161616;
-    transform: rotateY(180deg);
-}
-
-/* Controladores Visuais */
-.carrossel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 85, 0, 0.85);
-    color: #ffffff;
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+.social-icon {
     font-size: 2rem;
-    line-height: 40px;
-    cursor: pointer;
-    z-index: 100;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
 }
 
-.carrossel-btn:hover {
-    background: #ff3300;
-    transform: translateY(-50%) scale(1.1);
+.social-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
 }
 
-.btn-prev {
-    left: -15px;
-}
-
-.btn-next {
-    right: -15px;
-}
-
-.carrossel-hint {
-    text-align: center;
-    color: #555;
+.social-card p {
     font-size: 0.85rem;
-    margin-top: 25px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: #888888;
+    line-height: 1.4;
 }
 
-/* MODAL DE VÍDEO EXPANSÍVEL (YOUTUBE OVERLAY) */
+.social-card:hover {
+    border-color: #ff0000;
+    transform: translateY(-3px);
+}
+
+.destaque-vendas {
+    border-color: #25d366;
+}
+
+.destaque-vendas:hover {
+    border-color: #25d366;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.2);
+}
+
+.lp-footer {
+    background-color: #050505;
+    border-top: 1px solid #1a1a1a;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555555;
+}
+
+.footer-version {
+    font-size: 0.75rem;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   9. VIDEO MODAL (YOUTUBE)
+   ========================================================================== */
 .video-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.92);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2000;
     opacity: 0;
     visibility: hidden;
-    z-index: 2500;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .video-modal.active {
@@ -478,34 +741,28 @@ body {
 .video-modal-content {
     position: relative;
     width: 90%;
-    max-width: 850px;
-    background-color: #000000;
-    border: 2px solid #ff5500;
-    box-shadow: 0 0 35px rgba(255, 85, 0, 0.4);
+    max-width: 800px;
 }
 
 .close-modal {
     position: absolute;
-    top: -45px;
-    right: -5px;
-    background: transparent;
+    top: -40px;
+    right: 0;
+    background: none;
     border: none;
     color: #ffffff;
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     cursor: pointer;
-    transition: color 0.2s;
-}
-
-.close-modal:hover {
-    color: #ff5500;
 }
 
 .video-responsive-container {
     position: relative;
-    width: 100%;
     padding-bottom: 56.25%;
-    /* Ratio 16:9 Nativo */
+    /* Proporção 16:9 */
     height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #333;
 }
 
 .video-responsive-container iframe {
@@ -517,474 +774,105 @@ body {
 }
 
 /* ==========================================================================
-   6. GRID DE PARCEIROS
+   10. REGRAS DE RESPONSIVIDADE (MOBILE & TABLET)
    ========================================================================== */
-.parceiros-paginacao-wrapper {
-    position: relative;
-    width: 100%;
-    min-height: 480px;
-}
-
-.grid-parceiros {
-    display: none;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: scale(0.98);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-}
-
-.grid-parceiros.active {
-    display: grid;
-    opacity: 1;
-    transform: scale(1);
-}
-
-.parceiro-card {
-    height: 140px;
-    background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
-    border: 1px solid #252525;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.parceiro-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255, 26, 26, 0.1), transparent);
-    transition: 0.6s;
-}
-
-.parceiro-card img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: grayscale(100%) opacity(40%);
-    transition: all 0.4s ease;
-}
-
-.parceiro-card:hover {
-    border-color: #ff1a1a;
-    background: #161616;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 26, 26, 0.05);
-}
-
-.parceiro-card:hover::before {
-    left: 100%;
-}
-
-.parceiro-card:hover img {
-    filter: grayscale(0%) opacity(100%);
-    transform: scale(1.05);
-}
-
-.parceiros-controls {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 35px;
-}
-
-.btn-page {
-    background-color: #1a1a1a;
-    color: #a6a6a6;
-    border: 2px solid #333;
-    width: 40px;
-    height: 40px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.btn-page:hover {
-    color: #ff5500;
-    border-color: #ff5500;
-}
-
-.btn-page.active {
-    background-color: #ff5500;
-    color: #ffffff;
-    border-color: #ff5500;
-    box-shadow: 0 0 12px rgba(255, 85, 0, 0.4);
-}
-
-/* ==========================================================================
-   7. SEÇÃO SOBRE E EXTRA COMPONENTS
-   ========================================================================== */
-.sobre-subtitle {
-    font-size: 1.5rem;
-    color: #ffffff;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.mini-quote {
-    border-left: 4px solid #ff1a1a;
-    padding-left: 20px;
-    margin-top: 25px;
-    font-style: italic;
-    color: #d4d4d4;
-}
-
-.sobre-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    filter: grayscale(10%) contrast(110%);
-    border: 1px solid #222;
-}
-
-.grid-tres-colunas {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-}
-
-.card {
-    background-color: #141414;
-    padding: 35px 25px;
-    border-radius: 6px;
-    border-top: 4px solid #ff1a1a;
-}
-
-.card h3 {
-    font-size: 1.3rem;
-    color: #ffffff;
-    margin-bottom: 15px;
-}
-
-.card p {
-    color: #a6a6a6;
-    line-height: 1.5;
-}
-
-.lp-footer {
-    background-color: #050505;
-    padding: 40px 0;
-    text-align: center;
-    color: #666666;
-    font-size: 0.9rem;
-    border-top: 1px solid #1a1a1a;
-}
-
-.footer-version {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    color: #444444;
-}
-
-/* ==========================================================================
-   8. GRID DE REDES SOCIAIS E ATENDIMENTO
-   ========================================================================== */
-.grid-social {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.social-card {
-    background-color: #141414;
-    border: 1px solid #252525;
-    padding: 30px 20px;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    color: #e0e0e0;
-    transition: all 0.3s ease;
-    display: block;
-}
-
-.social-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.social-card h3 {
-    font-size: 1.2rem;
-    color: #ffffff;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.social-card p {
-    color: #a6a6a6;
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
-
-.social-card:hover {
-    border-color: #ff5500;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(255, 85, 0, 0.1);
-}
-
-.social-card:hover .social-icon {
-    transform: scale(1.15);
-}
-
-.destaque-vendas {
-    border: 1px solid rgba(255, 85, 0, 0.4);
-    background: linear-gradient(180deg, #141414 0%, #1a1614 100%);
-}
-
-/* ==========================================================================
-   9. RESPONSIVO LAPIDADO (MENU HAMBÚRGUER E FIXES MOBILE)
-   ========================================================================== */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 28px;
-    height: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 1100;
-    padding: 0;
-}
-
-.menu-toggle span {
-    width: 100%;
-    height: 3px;
-    background-color: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.menu-toggle.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-    background-color: #ff5500;
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-    background-color: #ff5500;
-}
-
-/* Media Query Unificada para Tablets e Mobile */
-@media screen and (max-width: 950px) {
-    body {
-        padding-top: 70px;
-    }
-
-    .navbar {
-        padding: 15px 5% !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-    }
-
-    .menu-toggle {
-        display: flex !important;
-    }
-
-    .menu {
-        position: fixed !important;
-        top: -100% !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: auto !important;
-        background-color: rgba(20, 20, 20, 0.98) !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        padding: 30px 0 !important;
-        gap: 15px !important;
-        transition: top 0.4s ease-in-out !important;
-        z-index: 1000 !important;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-    }
-
-    .menu.active {
-        top: 65px !important;
-    }
-
-    .menu a {
-        font-size: 1.05rem !important;
-        margin: 0 !important;
-        width: max-content !important;
-        padding: 10px 15px !important;
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        position: relative !important;
-        box-sizing: border-box !important;
-    }
-
-    .menu a::before {
-        display: inline-block !important;
-        content: "❚█══█❚" !important;
-        font-size: 0.65rem !important;
-        color: #ff5500 !important;
-        position: static !important;
-        transform: none !important;
-        opacity: 0;
-        transition: opacity 0.25s ease-in-out !important;
-    }
-
-    .menu a:hover::before,
-    .menu a:active::before {
-        opacity: 1 !important;
-    }
+@media (max-width: 1024px) {
 
     .container-flex,
     .container-flex.reverse {
-        flex-direction: column !important;
-        gap: 30px !important;
+        flex-direction: column;
+        gap: 30px;
     }
 
-    .image-block {
-        width: 100% !important;
-        min-width: 100% !important;
-        height: 260px !important;
+    .grid-social {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-tres-colunas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+
+    /* Ativação do Menu Hambúrguer */
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: #0a0a0a;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+        gap: 30px;
+        transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border-top: 1px solid #1a1a1a;
+    }
+
+    .menu.active {
+        left: 0;
     }
 
     .hero-title {
-        font-size: 1.8rem !important;
-        line-height: 1.2 !important;
-        max-width: 90% !important;
-        margin: 0 auto 10px auto !important;
+        font-size: 2.2rem;
     }
 
     .hero-subtitle {
-        font-size: 1.3rem !important;
-    }
-
-    .section-title {
-        font-size: 1.8rem !important;
+        font-size: 1.1rem;
     }
 
     .grid-tres-colunas,
     .grid-social {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        grid-template-columns: 1fr;
     }
 
-    .grid-parceiros {
-        grid-template-columns: repeat(2, 1fr) !important;
+    .carrossel-btn {
+        display: none;
+        /* Mobile navega puramente por arrastar de dedos (touch) */
     }
 
+    .carrossel-item {
+        flex: 0 0 280px;
+        /* Cards levemente mais estreitos para telas menores */
+        height: 400px;
+    }
+}
+
+/* Força as setas a aparecerem no responsivo */
+/* CORREÇÃO DIRETA DAS SETAS NO RESPONSIVO */
+   /* CORREÇÃO DIRETA DAS SETAS NO RESPONSIVO */
     .carrossel-btn {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 1.3rem !important;
-        z-index: 10 !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.5rem !important;
+        z-index: 9999 !important; 
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    }
+
+    /* MATADOR DO BUG: Esconde as setas enquanto o preloader não sumir */
+    #preloader:not(.sumir) ~ * .carrossel-btn,
+    #preloader:not(.sumir) ~ .carrossel-btn {
+        display: none !important;
     }
 
     .btn-prev {
-        left: 8px !important;
+        left: 10px !important; 
     }
 
     .btn-next {
-        right: 8px !important;
+        right: 10px !important; 
     }
-
-    .close-modal {
-        top: -40px;
-        right: 0;
-        font-size: 2rem;
-    }
-}
-
-/* Smartphone Ultra Pequenos */
-/* Smartphone Ultra Pequenos */
-@media screen and (max-width: 480px) {
-    .hero-title {
-        font-size: 1.5rem !important;
-    }
-
-    .grid-parceiros {
-        grid-template-columns: 1fr !important;
-    }
-
-    .carrossel-item {
-        flex: 0 0 280px !important;
-        /* Ajustado levemente para dar melhor leitura de tela */
-        height: 340px !important;
-        scroll-margin: 15px !important;
-        /* Margem proporcional ao celular */
-    }
-}
-
-/* ==========================================================================
-   10. TELA DE ABERTURA COM HALTER GIRATÓRIO (PRELOADER)
-   ========================================================================== */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #141414;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.loader-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
-}
-
-.loader-halter {
-    font-size: 2.5rem;
-    color: #ff5500;
-    font-weight: bold;
-    letter-spacing: 2px;
-    animation: rodarHalter 1.5s linear infinite;
-}
-
-.loader-text {
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0;
-    font-weight: 500;
-}
-
-@keyframes rodarHalter {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-#preloader.sumir {
-    opacity: 0;
-    visibility: hidden;
-}

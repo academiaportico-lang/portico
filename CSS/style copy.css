@@ -246,16 +246,6 @@ body {
     top: 2px;
 }
 
-.placeholder-img {
-    background-color: #1a1a1a;
-    border: 2px dashed #333333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #666666;
-    font-style: italic;
-}
-
 .image-block {
     flex: 1;
     min-width: 400px;
@@ -266,7 +256,7 @@ body {
 }
 
 /* ==========================================================================
-   5. CARROSSEL DE EQUIPAMENTOS E CONFIGURAÇÃO FLIP 3D
+   5. CARROSSEL DE EQUIPAMENTOS E CONFIGURAÇÃO FLIP 3D + CARD DE VÍDEO
    ========================================================================== */
 .carrossel-wrapper {
     position: relative;
@@ -279,32 +269,35 @@ body {
     width: 100%;
     overflow-x: auto;
     padding: 20px 0;
-    scroll-snap-type: x mandatory;
+    /* Removido paddings laterais estáticos se houver */
+    scroll-snap-type: x proximity;
+    /* Mudado de mandatory para proximity */
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     cursor: grab;
     outline: none;
+    display: flex;
+    gap: 25px;
 }
 
 .carrossel-container::-webkit-scrollbar {
     display: none;
 }
 
-.carrossel-track {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 25px;
-}
-
 .carrossel-item {
     flex: 0 0 320px;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
+    /* Mudado de center para start para estabilizar as pontas */
+    scroll-margin: 20px;
+    /* Garante que o item pare exatamente a 20px da borda da tela */
     height: 400px;
     background-color: #161616;
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid #222;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .carrossel-item img {
@@ -327,6 +320,48 @@ body {
     filter: grayscale(0%);
 }
 
+/* Ajustes de Layout para Cards com Linha de Vídeo Embaixo */
+.item-video-abaixo {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-video-abaixo .card-media {
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+}
+
+.card-footer-video {
+    background-color: #1a1a1a;
+    padding: 14px;
+    text-align: center;
+    border-top: 1px solid #282828;
+}
+
+.play-btn-inline {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.play-btn-inline:hover {
+    color: #ff5500;
+}
+
+.play-icon-mini {
+    color: #ff5500;
+    font-size: 0.75rem;
+}
+
+/* Configurações do Flip 3D */
 .item-flip {
     perspective: 1000px;
     background-color: transparent !important;
@@ -377,6 +412,7 @@ body {
     transform: rotateY(180deg);
 }
 
+/* Controladores Visuais */
 .carrossel-btn {
     position: absolute;
     top: 50%;
@@ -400,8 +436,13 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-.btn-prev { left: -15px; }
-.btn-next { right: -15px; }
+.btn-prev {
+    left: -15px;
+}
+
+.btn-next {
+    right: -15px;
+}
 
 .carrossel-hint {
     text-align: center;
@@ -410,6 +451,69 @@ body {
     margin-top: 25px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* MODAL DE VÍDEO EXPANSÍVEL (YOUTUBE OVERLAY) */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2500;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.video-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 850px;
+    background-color: #000000;
+    border: 2px solid #ff5500;
+    box-shadow: 0 0 35px rgba(255, 85, 0, 0.4);
+}
+
+.close-modal {
+    position: absolute;
+    top: -45px;
+    right: -5px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #ff5500;
+}
+
+.video-responsive-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* Ratio 16:9 Nativo */
+    height: 0;
+}
+
+.video-responsive-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 /* ==========================================================================
@@ -477,7 +581,10 @@ body {
     box-shadow: 0 10px 20px rgba(255, 26, 26, 0.05);
 }
 
-.parceiro-card:hover::before { left: 100%; }
+.parceiro-card:hover::before {
+    left: 100%;
+}
+
 .parceiro-card:hover img {
     filter: grayscale(0%) opacity(100%);
     transform: scale(1.05);
@@ -642,8 +749,6 @@ body {
 /* ==========================================================================
    9. RESPONSIVO LAPIDADO (MENU HAMBÚRGUER E FIXES MOBILE)
    ========================================================================== */
-
-/* Configuração base do botão hambúrguer (Escondido no Desktop) */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -664,20 +769,21 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Transformação para o 'X' quando ativo */
 .menu-toggle.active span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
     background-color: #ff5500;
 }
+
 .menu-toggle.active span:nth-child(2) {
     opacity: 0;
 }
+
 .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
     background-color: #ff5500;
 }
 
-/* ---- Ajuste Geral para Celulares e Tablets (Abaixo de 950px) ---- */
+/* Media Query Unificada para Tablets e Mobile */
 @media screen and (max-width: 950px) {
     body {
         padding-top: 70px;
@@ -690,12 +796,10 @@ body {
         align-items: center !important;
     }
 
-    /* FAZ O BOTÃO APARECER NO MOBILE */
     .menu-toggle {
         display: flex !important;
     }
 
-    /* Menu Cortina */
     .menu {
         position: fixed !important;
         top: -100% !important;
@@ -709,7 +813,7 @@ body {
         gap: 15px !important;
         transition: top 0.4s ease-in-out !important;
         z-index: 1000 !important;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
     }
 
     .menu.active {
@@ -719,35 +823,34 @@ body {
     .menu a {
         font-size: 1.05rem !important;
         margin: 0 !important;
-        width: max-content !important; 
+        width: max-content !important;
         padding: 10px 15px !important;
-        display: flex !important;          
-        flex-direction: row !important;     
-        align-items: center !important;    
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
         justify-content: center !important;
-        gap: 10px !important;              
+        gap: 10px !important;
         position: relative !important;
         box-sizing: border-box !important;
     }
 
     .menu a::before {
         display: inline-block !important;
-        content: "❚█══█❚" !important;      
+        content: "❚█══█❚" !important;
         font-size: 0.65rem !important;
-        color: #ff5500 !important;         
-        position: static !important;       
-        transform: none !important;        
-        opacity: 0;                        
+        color: #ff5500 !important;
+        position: static !important;
+        transform: none !important;
+        opacity: 0;
         transition: opacity 0.25s ease-in-out !important;
     }
 
     .menu a:hover::before,
     .menu a:active::before {
-        opacity: 1 !important;             
+        opacity: 1 !important;
     }
 
-    /* CORREÇÃO DO EMPILHAMENTO (FIM DAS DUAS FOTOS LADO A LADO) */
-    .container-flex, 
+    .container-flex,
     .container-flex.reverse {
         flex-direction: column !important;
         gap: 30px !important;
@@ -759,18 +862,22 @@ body {
         height: 260px !important;
     }
 
-    /* Redimensionamento de textos para telas menores */
     .hero-title {
-        font-size: 1.8rem !important;      
+        font-size: 1.8rem !important;
         line-height: 1.2 !important;
         max-width: 90% !important;
         margin: 0 auto 10px auto !important;
     }
 
-    .hero-subtitle { font-size: 1.3rem !important; }
-    .section-title { font-size: 1.8rem !important; }
+    .hero-subtitle {
+        font-size: 1.3rem !important;
+    }
 
-    .grid-tres-colunas, 
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+
+    .grid-tres-colunas,
     .grid-social {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
@@ -789,17 +896,39 @@ body {
         font-size: 1.3rem !important;
         z-index: 10 !important;
     }
-    .btn-prev { left: 8px !important; }
-    .btn-next { right: 8px !important; }
+
+    .btn-prev {
+        left: 8px !important;
+    }
+
+    .btn-next {
+        right: 8px !important;
+    }
+
+    .close-modal {
+        top: -40px;
+        right: 0;
+        font-size: 2rem;
+    }
 }
 
-/* ---- Smartphones Muito Pequenos (Abaixo de 480px) ---- */
+/* Smartphone Ultra Pequenos */
+/* Smartphone Ultra Pequenos */
 @media screen and (max-width: 480px) {
-    .hero-title { font-size: 1.5rem !important; }
-    .grid-parceiros { grid-template-columns: 1fr !important; }
+    .hero-title {
+        font-size: 1.5rem !important;
+    }
+
+    .grid-parceiros {
+        grid-template-columns: 1fr !important;
+    }
+
     .carrossel-item {
-        flex: 0 0 260px !important;
-        height: 320px !important;
+        flex: 0 0 280px !important;
+        /* Ajustado levemente para dar melhor leitura de tela */
+        height: 340px !important;
+        scroll-margin: 15px !important;
+        /* Margem proporcional ao celular */
     }
 }
 
@@ -832,7 +961,7 @@ body {
     color: #ff5500;
     font-weight: bold;
     letter-spacing: 2px;
-    animation: rodarHalter 1.5s linear infinite; 
+    animation: rodarHalter 1.5s linear infinite;
 }
 
 .loader-text {
@@ -846,8 +975,13 @@ body {
 }
 
 @keyframes rodarHalter {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 #preloader.sumir {
